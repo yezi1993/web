@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from . views import IndexViews
+from . views import IndexViews,UserViews
 
 
 urlpatterns = [
@@ -23,5 +23,16 @@ urlpatterns = [
     # 后台登录
     url(r'^login/$',IndexViews.myadminlogin,name='myadmin_login'),
     #验证码
-    url(r'^verifycode/$',IndexViews.verifycode,name='myadmin_verifycode')
+    url(r'^verifycode/$',IndexViews.verifycode,name='myadmin_verifycode'),
+
+    # 用户列表页
+    url(r'^user/index/$', UserViews.index, name='myadmin_user_index'),
+    # 用户添加
+    url(r'^user/add/$', UserViews.add, name='myadmin_user_add'),
+    # 用户编辑
+    url(r'^user/edit/(?P<uid>[0-9]+)/$', UserViews.edit, name='myadmin_user_edit'),
+    # 用户编辑处理
+    url(r'^user/update/$', UserViews.update, name='myadmin_user_update'),
+    # 用户删除
+    url(r'^user/delete/(?P<uid>[0-9]+)/$', UserViews.delete, name='myadmin_user_del'),
 ]
