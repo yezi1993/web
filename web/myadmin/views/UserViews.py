@@ -5,12 +5,13 @@ from myadmin.models import Users
 
 import os
 from web.settings import BASE_DIR
-
+# 用户列表页
 def index(request):
     data = Users.objects.all()
 
     return render(request,'myadmin/user/index.html',{'data':data})
 
+# 用户添加
 def add(request):
     if request.method == 'GET':
 
@@ -85,7 +86,7 @@ def update(request):
 
     return HttpResponse('222')
 
-
+# 处理文件上传
 def uploads(file):
     import random,time
 
