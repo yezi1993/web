@@ -34,5 +34,5 @@ urlpatterns = [
     # 用户编辑处理
     url(r'^user/update/$', UserViews.update, name='myadmin_user_update'),
     # 用户删除
-    url(r'^user/delete/(?P<uid>[0-9]+)/$', UserViews.delete, name='myadmin_user_del'),
+    url(r'^user/delete/$', UserViews.delete, name='myadmin_user_del'),
 ]

@@ -1,754 +1,378 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<title>控制台 - Bootstrap后台管理系统模版Ace下载</title>
-		<meta name="keywords" content="Bootstrap模版,Bootstrap模版下载,Bootstrap教程,Bootstrap中文" />
-		<meta name="description" content="JS代码网提供Bootstrap模版,Bootstrap教程,Bootstrap中文翻译等相关Bootstrap插件下载" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<!-- basic styles -->
-		<link href="/static/myadmin/css/bootstrap.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="/static/myadmin/css/font-awesome.min.css" />
 
-		<!--[if IE 7]>
-		  <link rel="stylesheet" href="/static/myadmin/css/font-awesome-ie7.min.css" />
-		<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% block title %}
+    <title>Amaze UI Admin index Examples</title>
+    {% endblock %}
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="/static/myadmin/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/myadmin/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <script src="/static/myadmin/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="/static/myadmin/css/amazeui.min.css" />
+    <link rel="stylesheet" href="/static/myadmin/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="/static/myadmin/css/app.css">
+    <script src="/static/myadmin/js/jquery.min.js"></script>
+
+</head>
+
+<body data-type="index">
+    <script src="/static/myadmin/js/theme.js"></script>
+    <div class="am-g tpl-g">
+        <!-- 头部 -->
+        <header>
+            <!-- logo -->
+            <div class="am-fl tpl-header-logo">
+                <a href="javascript:;"><img src="/static/myadmin/img/logo.png" alt=""></a>
+            </div>
+            <!-- 右侧内容 -->
+            <div class="tpl-header-fluid">
+                <!-- 侧边切换 -->
+                <div class="am-fl tpl-header-switch-button am-icon-list">
+                    <span>
+
+                </span>
+                </div>
+                <!-- 搜索 -->
+                <div class="am-fl tpl-header-search">
+                    <form class="tpl-header-search-form" action="javascript:;">
+                        <button class="tpl-header-search-btn am-icon-search"></button>
+                        <input class="tpl-header-search-box" type="text" placeholder="搜索内容...">
+                    </form>
+                </div>
+                <!-- 其它功能-->
+                <div class="am-fr tpl-header-navbar">
+                    <ul>
+                        <!-- 欢迎语 -->
+                        <li class="am-text-sm tpl-header-navbar-welcome">
+                            <a href="javascript:;">欢迎你, <span>Amaze UI</span> </a>
+                        </li>
+
+                        <!-- 新邮件 -->
+                        <li class="am-dropdown tpl-dropdown" data-am-dropdown>
+                            <a href="javascript:;" class="am-dropdown-toggle tpl-dropdown-toggle" data-am-dropdown-toggle>
+                                <i class="am-icon-envelope"></i>
+                                <span class="am-badge am-badge-success am-round item-feed-badge">4</span>
+                            </a>
+                            <!-- 弹出列表 -->
+                            <ul class="am-dropdown-content tpl-dropdown-content">
+                                <li class="tpl-dropdown-menu-messages">
+                                    <a href="javascript:;" class="tpl-dropdown-menu-messages-item am-cf">
+                                        <div class="menu-messages-ico">
+                                            <img src="/static/myadmin/img/user04.png" alt="">
+                                        </div>
+                                        <div class="menu-messages-time">
+                                            3小时前
+                                        </div>
+                                        <div class="menu-messages-content">
+                                            <div class="menu-messages-content-title">
+                                                <i class="am-icon-circle-o am-text-success"></i>
+                                                <span>夕风色</span>
+                                            </div>
+                                            <div class="am-text-truncate"> Amaze UI 的诞生，依托于 GitHub 及其他技术社区上一些优秀的资源；Amaze UI 的成长，则离不开用户的支持。 </div>
+                                            <div class="menu-messages-content-time">2016-09-21 下午 16:40</div>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li class="tpl-dropdown-menu-messages">
+                                    <a href="javascript:;" class="tpl-dropdown-menu-messages-item am-cf">
+                                        <div class="menu-messages-ico">
+                                            <img src="/static/myadmin/img/user02.png" alt="">
+                                        </div>
+                                        <div class="menu-messages-time">
+                                            5天前
+                                        </div>
+                                        <div class="menu-messages-content">
+                                            <div class="menu-messages-content-title">
+                                                <i class="am-icon-circle-o am-text-warning"></i>
+                                                <span>禁言小张</span>
+                                            </div>
+                                            <div class="am-text-truncate"> 为了能最准确的传达所描述的问题， 建议你在反馈时附上演示，方便我们理解。 </div>
+                                            <div class="menu-messages-content-time">2016-09-16 上午 09:23</div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="tpl-dropdown-menu-messages">
+                                    <a href="javascript:;" class="tpl-dropdown-menu-messages-item am-cf">
+                                        <i class="am-icon-circle-o"></i> 进入列表…
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- 新提示 -->
+                        <li class="am-dropdown" data-am-dropdown>
+                            <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle>
+                                <i class="am-icon-bell"></i>
+                                <span class="am-badge am-badge-warning am-round item-feed-badge">5</span>
+                            </a>
+
+                            <!-- 弹出列表 -->
+                            <ul class="am-dropdown-content tpl-dropdown-content">
+                                <li class="tpl-dropdown-menu-notifications">
+                                    <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                        <div class="tpl-dropdown-menu-notifications-title">
+                                            <i class="am-icon-line-chart"></i>
+                                            <span> 有6笔新的销售订单</span>
+                                        </div>
+                                        <div class="tpl-dropdown-menu-notifications-time">
+                                            12分钟前
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="tpl-dropdown-menu-notifications">
+                                    <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                        <div class="tpl-dropdown-menu-notifications-title">
+                                            <i class="am-icon-star"></i>
+                                            <span> 有3个来自人事部的消息</span>
+                                        </div>
+                                        <div class="tpl-dropdown-menu-notifications-time">
+                                            30分钟前
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="tpl-dropdown-menu-notifications">
+                                    <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                        <div class="tpl-dropdown-menu-notifications-title">
+                                            <i class="am-icon-folder-o"></i>
+                                            <span> 上午开会记录存档</span>
+                                        </div>
+                                        <div class="tpl-dropdown-menu-notifications-time">
+                                            1天前
+                                        </div>
+                                    </a>
+                                </li>
+
+
+                                <li class="tpl-dropdown-menu-notifications">
+                                    <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                        <i class="am-icon-bell"></i> 进入列表…
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- 退出 -->
+                        <li class="am-text-sm">
+                            <a href="javascript:;">
+                                <span class="am-icon-sign-out"></span> 退出
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </header>
+        <!-- 风格切换 -->
+        <div class="tpl-skiner">
+            <div class="tpl-skiner-toggle am-icon-cog">
+            </div>
+            <div class="tpl-skiner-content">
+                <div class="tpl-skiner-content-title">
+                    选择主题
+                </div>
+                <div class="tpl-skiner-content-bar">
+                    <span class="skiner-color skiner-white" data-color="theme-white"></span>
+                    <span class="skiner-color skiner-black" data-color="theme-black"></span>
+                </div>
+            </div>
+        </div>
+        <!-- 侧边导航栏 -->
+        <div class="left-sidebar">
+            <!-- 用户信息 -->
+            <div class="tpl-sidebar-user-panel">
+                <div class="tpl-user-panel-slide-toggleable">
+                    <div class="tpl-user-panel-profile-picture">
+                        <img src="/static/myadmin/img/user04.png" alt="">
+                    </div>
+                    <span class="user-panel-logged-in-text">
+              <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
+              禁言小张
+          </span>
+                    <a href="javascript:;" class="tpl-user-panel-action-link"> <span class="am-icon-pencil"></span> 账号设置</a>
+                </div>
+            </div>
+
+            <!-- 菜单 -->
+            <ul class="sidebar-nav">
+                <li class="sidebar-nav-heading">Components <span class="sidebar-nav-heading-info"> 附加组件</span></li>
+                
+                <li class="sidebar-nav-link">
+                    <a href="index.html" class="active">
+                        <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
+                    </a>
+                </li>
+                
+                <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-user sidebar-nav-link-logo"></i> 会员管理
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <li class="sidebar-nav-link">
+                            <a href="{% url 'myadmin_user_index' %}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 会员列表
+                            </a>
+                        </li>
+
+                        <li class="sidebar-nav-link">
+                            <a href="{% url 'myadmin_user_add' %}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 会员添加
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-table sidebar-nav-link-logo"></i> 商品分类管理
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <li class="sidebar-nav-link">
+                            <a href="table-list.html">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 商品分类列表
+                            </a>
+                        </li>
+
+                        <li class="sidebar-nav-link">
+                            <a href="table-list-img.html">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 商品分类添加
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-shopping-bag sidebar-nav-link-logo"></i> 商品管理
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <li class="sidebar-nav-link">
+                            <a href="table-list.html">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 商品列表
+                            </a>
+                        </li>
+
+                        <li class="sidebar-nav-link">
+                            <a href="table-list-img.html">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 商品添加
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-nav-link">
+                    <a href="index.html">
+                        <i class="am-icon-cart-plus sidebar-nav-link-logo"></i> 订单管理
+                    </a>
+                </li>
+              
+
+            </ul>
+        </div>
+
+
+        <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
+            {% block con %}
+            <div class="container-fluid am-cf">
+                <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 部件首页 <small>Amaze UI</small></div>
+                        <p class="page-header-description">Amaze UI 含近 20 个 CSS 组件、20 余 JS 组件，更有多个包含不同主题的 Web 组件。</p>
+                    </div>
+                    <div class="am-u-lg-3 tpl-index-settings-button">
+                        <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-content am-cf">
+                <div class="row  am-cf">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-4">
+                        <div class="widget am-cf">
+                            <div class="widget-head am-cf">
+                                <div class="widget-title am-fl">月度财务收支计划</div>
+                                <div class="widget-function am-fr">
+                                    <a href="javascript:;" class="am-icon-cog"></a>
+                                </div>
+                            </div>
+                            <div class="widget-body am-fr">
+                                <div class="am-fl">
+                                    <div class="widget-fluctuation-period-text">
+                                        ￥61746.45
+                                        <button class="widget-fluctuation-tpl-btn">
+                                            <i class="am-icon-calendar"></i>
+                                            更多月份
+                                          </button>
+                                    </div>
+                                </div>
+                                <div class="am-fr am-cf">
+                                    <div class="widget-fluctuation-description-amount text-success" am-cf>
+                                        +￥30420.56
+
+                                    </div>
+                                    <div class="widget-fluctuation-description-text am-text-right">
+                                        8月份收入
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
+                        <div class="widget widget-primary am-cf">
+                            <div class="widget-statistic-header">
+                                本季度利润
+                            </div>
+                            <div class="widget-statistic-body">
+                                <div class="widget-statistic-value">
+                                    ￥27,294
+                                </div>
+                                <div class="widget-statistic-description">
+                                    本季度比去年多收入 <strong>2593元</strong> 人民币
+                                </div>
+                                <span class="widget-statistic-icon am-icon-credit-card-alt"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
+                        <div class="widget widget-purple am-cf">
+                            <div class="widget-statistic-header">
+                                本季度利润
+                            </div>
+                            <div class="widget-statistic-body">
+                                <div class="widget-statistic-value">
+                                    ￥27,294
+                                </div>
+                                <div class="widget-statistic-description">
+                                    本季度比去年多收入 <strong>2593元</strong> 人民币
+                                </div>
+                                <span class="widget-statistic-icon am-icon-support"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endblock %}
+        </div>
+    </div>
+    </div>
+    <script src="/static/myadmin/js/amazeui.min.js"></script>
+    <script src="/static/myadmin/js/amazeui.datatables.min.js"></script>
+    <script src="/static/myadmin/js/dataTables.responsive.min.js"></script>
+    <script src="/static/myadmin/js/app.js"></script>
+
+</body>
 
-		<!-- page specific plugin styles -->
-
-		<!-- fonts -->
-
-		<!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />-->
-
-		<!-- ace styles -->
-
-		<link rel="stylesheet" href="/static/myadmin/css/ace.min.css" />
-		<link rel="stylesheet" href="/static/myadmin/css/ace-rtl.min.css" />
-		<link rel="stylesheet" href="/static/myadmin/css/ace-skins.min.css" />
-
-		<!--[if lte IE 8]>
-		  <link rel="stylesheet" href="/static/myadmin/css/ace-ie.min.css" />
-		<![endif]-->
-
-		<!-- inline styles related to this page -->
-
-		<!-- ace settings handler -->
-
-		<script src="/static/myadmin/js/ace-extra.min.js"></script>
-
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-
-		<!--[if lt IE 9]>
-		<script src="/static/myadmin/js/html5shiv.js"></script>
-		<script src="/static/myadmin/js/respond.min.js"></script>
-		<![endif]-->
-	</head>
-
-	<body>
-		<div class="navbar navbar-default" id="navbar">
-			<script type="text/javascript">
-				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
-			</script>
-
-			<div class="navbar-container" id="navbar-container">
-				<div class="navbar-header pull-left">
-					<a href="#" class="navbar-brand">
-						<small>
-							<i class="icon-leaf"></i>
-							ACE后台管理系统
-						</small>
-					</a><!-- /.brand -->
-				</div><!-- /.navbar-header -->
-
-				<div class="navbar-header pull-right" role="navigation">
-					<ul class="nav ace-nav">
-
-							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
-
-
-
-
-								<li>
-									<a href="#">
-										<img src="/static/myadmin/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Bob:</span>
-												到底是不是英文 ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>下午3:15</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="inbox.html">
-										查看所有消息
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
-
-						<li class="light-blue">
-							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="/static/myadmin/avatars/user.jpg" alt="Jason's Photo" />
-								<span class="user-info">
-									<small>欢迎光临,</small>
-									Jason
-								</span>
-
-								<i class="icon-caret-down"></i>
-							</a>
-
-							<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-								<li>
-									<a href="#">
-										<i class="icon-cog"></i>
-										设置
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<i class="icon-user"></i>
-										个人资料
-									</a>
-								</li>
-
-								<li class="divider"></li>
-
-								<li>
-									<a href="#">
-										<i class="icon-off"></i>
-										退出
-									</a>
-								</li>
-							</ul>
-						</li>
-					</ul><!-- /.ace-nav -->
-				</div><!-- /.navbar-header -->
-			</div><!-- /.container -->
-		</div>
-
-		<div class="main-container" id="main-container">
-			<script type="text/javascript">
-				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
-			</script>
-
-			<div class="main-container-inner">
-				<a class="menu-toggler" id="menu-toggler" href="#">
-					<span class="menu-text"></span>
-				</a>
-
-				<div class="sidebar" id="sidebar">
-					<script type="text/javascript">
-						try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
-					</script>
-
-					<div class="sidebar-shortcuts" id="sidebar-shortcuts">
-						<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-							<button class="btn btn-success">
-								<i class="icon-signal"></i>
-							</button>
-
-							<button class="btn btn-info">
-								<i class="icon-pencil"></i>
-							</button>
-
-							<button class="btn btn-warning">
-								<i class="icon-group"></i>
-							</button>
-
-							<button class="btn btn-danger">
-								<i class="icon-cogs"></i>
-							</button>
-						</div>
-
-						<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-							<span class="btn btn-success"></span>
-
-							<span class="btn btn-info"></span>
-
-							<span class="btn btn-warning"></span>
-
-							<span class="btn btn-danger"></span>
-						</div>
-					</div><!-- #sidebar-shortcuts -->
-
-					<ul class="nav nav-list">
-						<li class="active">
-							<a href="{% url 'myadmin_index' %}">
-								<i class="icon-dashboard"></i>
-								<span class="menu-text"> 控制台 </span>
-							</a>
-						</li>
-
-						<li>
-							<a href="#" class="dropdown-toggle">
-								<i class="icon-desktop"></i>
-								<span class="menu-text"> 用户管理 </span>
-
-								<b class="arrow icon-angle-down"></b>
-							</a>
-
-							<ul class="submenu">
-								<li>
-									<a href="{% url 'myadmin_user_index' %}">
-										<i class="icon-double-angle-right"></i>
-										用户列表
-									</a>
-								</li>
-
-								<li>
-									<a href="{% url 'myadmin_user_add' %}">
-										<i class="icon-double-angle-right"></i>
-										用户添加
-									</a>
-								</li>
-
-							</ul>
-						</li>
-
-						<li>
-							<a href="#" class="dropdown-toggle">
-								<i class="icon-desktop"></i>
-								<span class="menu-text"> UI 组件 </span>
-
-								<b class="arrow icon-angle-down"></b>
-							</a>
-
-							<ul class="submenu">
-								<li>
-									<a href="elements.html">
-										<i class="icon-double-angle-right"></i>
-										组件
-									</a>
-								</li>
-
-								<li>
-									<a href="treeview.html">
-										<i class="icon-double-angle-right"></i>
-										树菜单
-									</a>
-								</li>
-
-								<li>
-									<a href="#" class="dropdown-toggle">
-										<i class="icon-double-angle-right"></i>
-
-										三级菜单
-										<b class="arrow icon-angle-down"></b>
-									</a>
-
-									<ul class="submenu">
-										<li>
-											<a href="#">
-												<i class="icon-leaf"></i>
-												第一级
-											</a>
-										</li>
-
-										<li>
-											<a href="#" class="dropdown-toggle">
-												<i class="icon-pencil"></i>
-
-												第四级
-												<b class="arrow icon-angle-down"></b>
-											</a>
-
-											<ul class="submenu">
-												<li>
-													<a href="#">
-														<i class="icon-plus"></i>
-														添加产品
-													</a>
-												</li>
-
-												<li>
-													<a href="#">
-														<i class="icon-eye-open"></i>
-														查看商品
-													</a>
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-							</ul>
-						</li>
-
-						<li>
-							<a href="widgets.html">
-								<i class="icon-list-alt"></i>
-								<span class="menu-text"> 插件 </span>
-							</a>
-						</li>
-
-					</ul><!-- /.nav-list -->
-
-					<div class="sidebar-collapse" id="sidebar-collapse">
-						<i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
-					</div>
-
-					<script type="text/javascript">
-						try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
-					</script>
-				</div>
-
-
-				<!--主体内容-->
-				{% block content %}
-				<div class="main-content">
-					<div class="breadcrumbs" id="breadcrumbs">
-						<script type="text/javascript">
-							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
-						</script>
-
-						<ul class="breadcrumb">
-							<li>
-								<i class="icon-home home-icon"></i>
-								<a href="#">首页</a>
-							</li>
-							<li class="active">控制台</li>
-						</ul><!-- .breadcrumb -->
-
-					</div>
-
-					<div class="page-content">
-						<div class="page-header">
-							<h1>
-								控制台
-								<small>
-									<i class="icon-double-angle-right"></i>
-									 查看
-								</small>
-							</h1>
-						</div><!-- /.page-header -->
-
-						<div class="row">
-							<div class="col-xs-12">
-								<!-- PAGE CONTENT BEGINS -->
-
-								<div class="alert alert-block alert-success">
-									<button type="button" class="close" data-dismiss="alert">
-										<i class="icon-remove"></i>
-									</button>
-
-									<i class="icon-ok green"></i>
-
-									欢迎使用
-									<strong class="green">
-										Ace后台管理系统
-										<small>(v1.2)</small>
-									</strong>
-									,轻量级好用的后台管理系统模版.	
-								</div>
-
-								<div class="row">
-									<div class="space-6"></div>
-
-									<div class="col-sm-7 infobox-container">
-										<div class="infobox infobox-green  ">
-											<div class="infobox-icon">
-												<i class="icon-comments"></i>
-											</div>
-
-											<div class="infobox-data">
-												<span class="infobox-data-number">32</span>
-												<div class="infobox-content">2个评论</div>
-											</div>
-											<div class="stat stat-success">8%</div>
-										</div>
-
-										<div class="infobox infobox-blue  ">
-											<div class="infobox-icon">
-												<i class="icon-twitter"></i>
-											</div>
-
-											<div class="infobox-data">
-												<span class="infobox-data-number">11</span>
-												<div class="infobox-content">新粉丝</div>
-											</div>
-
-											<div class="badge badge-success">
-												+32%
-												<i class="icon-arrow-up"></i>
-											</div>
-										</div>
-
-										<div class="infobox infobox-pink  ">
-											<div class="infobox-icon">
-												<i class="icon-shopping-cart"></i>
-											</div>
-
-											<div class="infobox-data">
-												<span class="infobox-data-number">8</span>
-												<div class="infobox-content">新订单</div>
-											</div>
-											<div class="stat stat-important">4%</div>
-										</div>
-
-										<div class="infobox infobox-red  ">
-											<div class="infobox-icon">
-												<i class="icon-beaker"></i>
-											</div>
-
-											<div class="infobox-data">
-												<span class="infobox-data-number">7</span>
-												<div class="infobox-content">调查</div>
-											</div>
-										</div>
-
-										<div class="infobox infobox-orange2  ">
-											<div class="infobox-chart">
-												<span class="sparkline" data-values="196,128,202,177,154,94,100,170,224"></span>
-											</div>
-
-											<div class="infobox-data">
-												<span class="infobox-data-number">6,251</span>
-												<div class="infobox-content">页面查看次数</div>
-											</div>
-
-											<div class="badge badge-success">
-												7.2%
-												<i class="icon-arrow-up"></i>
-											</div>
-										</div>
-
-										<div class="infobox infobox-blue2  ">
-											<div class="infobox-progress">
-												<div class="easy-pie-chart percentage" data-percent="42" data-size="46">
-													<span class="percent">42</span>%
-												</div>
-											</div>
-
-											<div class="infobox-data">
-												<span class="infobox-text">交易使用</span>
-
-												<div class="infobox-content">
-													<span class="bigger-110">~</span>
-													剩余58GB
-												</div>
-											</div>
-										</div>
-
-										<div class="space-6"></div>
-
-										<div class="infobox infobox-green infobox-small infobox-dark">
-											<div class="infobox-progress">
-												<div class="easy-pie-chart percentage" data-percent="61" data-size="39">
-													<span class="percent">61</span>%
-												</div>
-											</div>
-
-											<div class="infobox-data">
-												<div class="infobox-content">任务</div>
-												<div class="infobox-content">完成</div>
-											</div>
-										</div>
-
-										<div class="infobox infobox-blue infobox-small infobox-dark">
-											<div class="infobox-chart">
-												<span class="sparkline" data-values="3,4,2,3,4,4,2,2"></span>
-											</div>
-
-											<div class="infobox-data">
-												<div class="infobox-content">获得</div>
-												<div class="infobox-content">$32,000</div>
-											</div>
-										</div>
-
-										<div class="infobox infobox-grey infobox-small infobox-dark">
-											<div class="infobox-icon">
-												<i class="icon-download-alt"></i>
-											</div>
-
-											<div class="infobox-data">
-												<div class="infobox-content">下载次数</div>
-												<div class="infobox-content">1,205</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="vspace-sm"></div>
-
-								</div><!-- /row -->
-
-								<div class="hr hr32 hr-dotted"></div>
-
-								<div class="hr hr32 hr-dotted"></div>
-
-
-
-								<!-- PAGE CONTENT ENDS -->
-							</div><!-- /.col -->
-						</div><!-- /.row -->
-					</div><!-- /.page-content -->
-				</div><!-- /.main-content -->
-				{% endblock %}
-
-
-			</div><!-- /.main-container-inner -->
-
-			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-				<i class="icon-double-angle-up icon-only bigger-110"></i>
-			</a>
-		</div><!-- /.main-container -->
-
-		<!-- basic scripts -->
-
-		<!--[if !IE]> -->
-
-
-
-		<!-- <![endif]-->
-
-		<!--[if IE]>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<![endif]-->
-
-		<!--[if !IE]> -->
-
-		<script type="text/javascript">
-			window.jQuery || document.write("<script src='/static/myadmin/js/jquery-2.0.3.min.js'>"+"<"+"script>");
-		</script>
-
-		<!-- <![endif]-->
-
-		<!--[if IE]>
-<script type="text/javascript">
- window.jQuery || document.write("<script src='/static/myadmin/js/jquery-1.10.2.min.js'>"+"<"+"script>");
-</script>
-<![endif]-->
-
-		<script type="text/javascript">
-			if("ontouchend" in document) document.write("<script src='/static/myadmin/js/jquery.mobile.custom.min.js'>"+"<"+"script>");
-		</script>
-		<script src="/static/myadmin/js/bootstrap.min.js"></script>
-		<script src="/static/myadmin/js/typeahead-bs2.min.js"></script>
-
-		<!-- page specific plugin scripts -->
-
-		<!--[if lte IE 8]>
-		  <script src="/static/myadmin/js/excanvas.min.js"></script>
-		<![endif]-->
-
-		<script src="/static/myadmin/js/jquery-ui-1.10.3.custom.min.js"></script>
-		<script src="/static/myadmin/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="/static/myadmin/js/jquery.slimscroll.min.js"></script>
-		<script src="/static/myadmin/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="/static/myadmin/js/jquery.sparkline.min.js"></script>
-		<!--<script src="/static/myadmin/js/flot/jquery.flot.min.js"></script>-->
-		<!--<script src="/static/myadmin/js/flot/jquery.flot.pie.min.js"></script>-->
-		<!--<script src="/static/myadmin/js/flot/jquery.flot.resize.min.js"></script>-->
-
-		<!-- ace scripts -->
-
-		<script src="/static/myadmin/js/ace-elements.min.js"></script>
-		<script src="/static/myadmin/js/ace.min.js"></script>
-
-		<!-- inline scripts related to this page -->
-
-		<!--<script type="text/javascript">-->
-			<!--jQuery(function($) {-->
-				<!--$('.easy-pie-chart.percentage').each(function(){-->
-					<!--var $box = $(this).closest('.infobox');-->
-					<!--var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');-->
-					<!--var trackColor = barColor == 'rgba(255,255,255,0.95)' ? 'rgba(255,255,255,0.25)' : '#E2E2E2';-->
-					<!--var size = parseInt($(this).data('size')) || 50;-->
-					<!--$(this).easyPieChart({-->
-						<!--barColor: barColor,-->
-						<!--trackColor: trackColor,-->
-						<!--scaleColor: false,-->
-						<!--lineCap: 'butt',-->
-						<!--lineWidth: parseInt(size/10),-->
-						<!--animate: /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase()) ? false : 1000,-->
-						<!--size: size-->
-					<!--});-->
-				<!--})-->
-			<!---->
-				<!--$('.sparkline').each(function(){-->
-					<!--var $box = $(this).closest('.infobox');-->
-					<!--var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';-->
-					<!--$(this).sparkline('html', {tagValuesAttribute:'data-values', type: 'bar', barColor: barColor , chartRangeMin:$(this).data('min') || 0} );-->
-				<!--});-->
-			<!---->
-			<!---->
-			<!---->
-			<!---->
-			  <!--var placeholder = $('#piechart-placeholder').css({'width':'90%' , 'min-height':'150px'});-->
-			  <!--var data = [-->
-				<!--{ label: "social networks",  data: 38.7, color: "#68BC31"},-->
-				<!--{ label: "search engines",  data: 24.5, color: "#2091CF"},-->
-				<!--{ label: "ad campaigns",  data: 8.2, color: "#AF4E96"},-->
-				<!--{ label: "direct traffic",  data: 18.6, color: "#DA5430"},-->
-				<!--{ label: "other",  data: 10, color: "#FEE074"}-->
-			  <!--]-->
-			 <!--//  function drawPieChart(placeholder, data, position) {-->
-			 <!--// 	  $.plot(placeholder, data, {-->
-				<!--// 	series: {-->
-				<!--// 		pie: {-->
-				<!--// 			show: true,-->
-				<!--// 			tilt:0.8,-->
-				<!--// 			highlight: {-->
-				<!--// 				opacity: 0.25-->
-				<!--// 			},-->
-				<!--// 			stroke: {-->
-				<!--// 				color: '#fff',-->
-				<!--// 				width: 2-->
-				<!--// 			},-->
-				<!--// 			startAngle: 2-->
-				<!--// 		}-->
-				<!--// 	},-->
-				<!--// 	legend: {-->
-				<!--// 		show: true,-->
-				<!--// 		position: position || "ne",-->
-				<!--// 		labelBoxBorderColor: null,-->
-				<!--// 		margin:[-30,15]-->
-				<!--// 	}-->
-				<!--// 	,-->
-				<!--// 	grid: {-->
-				<!--// 		hoverable: true,-->
-				<!--// 		clickable: true-->
-				<!--// 	}-->
-				<!--//  })-->
-			 <!--// }-->
-			 <!--// drawPieChart(placeholder, data);-->
-			<!---->
-			 <!--/**-->
-			 <!--we saved the drawing function and the data to redraw with different position later when switching to RTL mode dynamically-->
-			 <!--so that's not needed actually.-->
-			 <!--*/-->
-			 <!--placeholder.data('chart', data);-->
-			 <!--// placeholder.data('draw', drawPieChart);-->
-			<!---->
-			<!---->
-			<!---->
-			  <!--var $tooltip = $("<div class='tooltip top in'><div class='tooltip-inner'></div></div>").hide().appendTo('body');-->
-			  <!--var previousPoint = null;-->
-			<!---->
-			  <!--placeholder.on('plothover', function (event, pos, item) {-->
-				<!--if(item) {-->
-					<!--if (previousPoint != item.seriesIndex) {-->
-						<!--previousPoint = item.seriesIndex;-->
-						<!--var tip = item.series['label'] + " : " + item.series['percent']+'%';-->
-						<!--$tooltip.show().children(0).text(tip);-->
-					<!--}-->
-					<!--$tooltip.css({top:pos.pageY + 10, left:pos.pageX + 10});-->
-				<!--} else {-->
-					<!--$tooltip.hide();-->
-					<!--previousPoint = null;-->
-				<!--}-->
-				<!---->
-			 <!--});-->
-			<!---->
-			<!---->
-			<!---->
-			<!---->
-			<!---->
-			<!---->
-				<!--var d1 = [];-->
-				<!--for (var i = 0; i < Math.PI * 2; i += 0.5) {-->
-					<!--d1.push([i, Math.sin(i)]);-->
-				<!--}-->
-			<!---->
-				<!--var d2 = [];-->
-				<!--for (var i = 0; i < Math.PI * 2; i += 0.5) {-->
-					<!--d2.push([i, Math.cos(i)]);-->
-				<!--}-->
-			<!---->
-				<!--var d3 = [];-->
-				<!--for (var i = 0; i < Math.PI * 2; i += 0.2) {-->
-					<!--d3.push([i, Math.tan(i)]);-->
-				<!--}-->
-				<!---->
-			<!---->
-				<!--var sales_charts = $('#sales-charts').css({'width':'100%' , 'height':'220px'});-->
-				<!--$.plot("#sales-charts", [-->
-					<!--{ label: "Domains", data: d1 },-->
-					<!--{ label: "Hosting", data: d2 },-->
-					<!--{ label: "Services", data: d3 }-->
-				<!--], {-->
-					<!--hoverable: true,-->
-					<!--shadowSize: 0,-->
-					<!--series: {-->
-						<!--lines: { show: true },-->
-						<!--points: { show: true }-->
-					<!--},-->
-					<!--xaxis: {-->
-						<!--tickLength: 0-->
-					<!--},-->
-					<!--yaxis: {-->
-						<!--ticks: 10,-->
-						<!--min: -2,-->
-						<!--max: 2,-->
-						<!--tickDecimals: 3-->
-					<!--},-->
-					<!--grid: {-->
-						<!--backgroundColor: { colors: [ "#fff", "#fff" ] },-->
-						<!--borderWidth: 1,-->
-						<!--borderColor:'#555'-->
-					<!--}-->
-				<!--});-->
-			<!---->
-			<!---->
-				<!--$('#recent-box [data-rel="tooltip"]').tooltip({placement: tooltip_placement});-->
-				<!--function tooltip_placement(context, source) {-->
-					<!--var $source = $(source);-->
-					<!--var $parent = $source.closest('.tab-content')-->
-					<!--var off1 = $parent.offset();-->
-					<!--var w1 = $parent.width();-->
-			<!---->
-					<!--var off2 = $source.offset();-->
-					<!--var w2 = $source.width();-->
-			<!---->
-					<!--if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';-->
-					<!--return 'left';-->
-				<!--}-->
-			<!---->
-			<!---->
-				<!--$('.dialogs,.comments').slimScroll({-->
-					<!--height: '300px'-->
-			    <!--});-->
-				<!---->
-				<!---->
-				<!--//Android's default browser somehow is confused when tapping on label which will lead to dragging the task-->
-				<!--//so disable dragging when clicking on label-->
-				<!--var agent = navigator.userAgent.toLowerCase();-->
-				<!--if("ontouchstart" in document && /applewebkit/.test(agent) && /android/.test(agent))-->
-				  <!--$('#tasks').on('touchstart', function(e){-->
-					<!--var li = $(e.target).closest('#tasks li');-->
-					<!--if(li.length == 0)return;-->
-					<!--var label = li.find('label.inline').get(0);-->
-					<!--if(label == e.target || $.contains(label, e.target)) e.stopImmediatePropagation() ;-->
-				<!--});-->
-			<!---->
-				<!--$('#tasks').sortable({-->
-					<!--opacity:0.8,-->
-					<!--revert:true,-->
-					<!--forceHelperSize:true,-->
-					<!--placeholder: 'draggable-placeholder',-->
-					<!--forcePlaceholderSize:true,-->
-					<!--tolerance:'pointer',-->
-					<!--stop: function( event, ui ) {//just for Chrome!!!! so that dropdowns on items don't appear below other items after being moved-->
-						<!--$(ui.item).css('z-index', 'auto');-->
-					<!--}-->
-					<!--}-->
-				<!--);-->
-				<!--$('#tasks').disableSelection();-->
-				<!--$('#tasks input:checkbox').removeAttr('checked').on('click', function(){-->
-					<!--if(this.checked) $(this).closest('li').addClass('selected');-->
-					<!--else $(this).closest('li').removeClass('selected');-->
-				<!--});-->
-				<!---->
-			<!---->
-			<!--})-->
-		<!--</script>-->
-	</body>
 </html>
-

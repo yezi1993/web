@@ -9,14 +9,15 @@ from web.settings import BASE_DIR
 def index(request):
     data = Users.objects.all()
 
-    return render(request,'myadmin/user/index.html',{'data':data})
+    return render(request,'myadmin/users/index.html',{'data':data})
 
 # 用户添加
 def add(request):
     if request.method == 'GET':
 
-        return render(request, 'myadmin/user/add.html')
+        return render(request, 'myadmin/users/add.html')
     elif request.method == 'POST':
+
         try:
             data = request.POST.dict()
             data.pop('csrfmiddlewaretoken')
@@ -38,14 +39,30 @@ def add(request):
             return HttpResponse('<script>alert("会员添加失败");history.back(-1);</script>')
 
 # 用户删除
-def delete(request,uid):
+def delete(request):
+    # 接受uid
+    uid = request.GET.get('uid')
+    # 获取用户对象
+    ob = Users.objects.get(id=uid)
+
+    # 判断当前用户是否使用了默认头像
+    if ob.pic != '/static/pics/user.gif':
+
         try:
-            ob = Users.objects.get(id=uid)
-            ob.status = 0
-            ob.save()
-            return HttpResponse('<script>alert("会员删除成功");location.href="/myadmin/user/index/"</script>')
+            # 删除头像
+            os.remove(BASE_DIR+ob.pic)
         except:
-            return HttpResponse('<script>alert("会员删除失败");location.href="/myadmin/user/index/"</script>')
+            data = {'error':1,'msg':'文件删除失败'}
+            return JsonResponse(data)
+
+    try:
+        # 执行删除
+        ob.delete()
+        data = {'error':0,'msg':'删除成功'}
+    except:
+        data = {'error':2,'msg':'数据删除失败'}
+
+    return JsonResponse(data)
 
 
 
@@ -53,7 +70,7 @@ def delete(request,uid):
 def edit(request,uid):
     ob = Users.objects.get(id=uid)
     cont = {'data':ob}
-    return render(request,'myadmin/user/edit.html',cont)
+    return render(request,'myadmin/users/edit.html',cont)
 
 
 # 用户编辑处理
@@ -65,6 +82,7 @@ def update(request):
         if request.POST.get('password',None):
             ob.password = make_password(request.POST['password'],None,'pbkdf2_sha256')
         ob.email = request.POST['email']
+        ob.phone = request.POST['phone']
         ob.age = request.POST['age']
         ob.sex = request.POST['sex']
 
