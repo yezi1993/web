@@ -2,12 +2,50 @@ from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 from django.contrib.auth.hashers import make_password, check_password
 from myadmin.models import Users
+from django.core.paginator import Paginator
 
 import os
 from web.settings import BASE_DIR
 # 用户列表页
 def index(request):
-    data = Users.objects.all()
+
+    data = Users.objects.filter()
+
+    types = request.GET.get('types')
+    keywords = request.GET.get('keywords')
+    if types == 'username':
+        data = data.filter(username__contains=keywords)
+
+    if types == 'phone':
+        data = data.filter(phone__contains=keywords)
+
+    if types == 'email':
+        data = data.filter(email__contains=keywords)
+
+    if types == 'age':
+        data = data.filter(age=keywords)
+
+    if types == 'sex':
+        if keywords == '男':
+            data = data.filter(sex='1')
+        elif keywords == '女':
+            data = data.filter(sex='0')
+
+
+    if types == 'status':
+        if keywords == '正常':
+            data = data.filter(status=1)
+        elif keywords == '禁用':
+            data = data.filter(status=0)
+
+
+    # 实例化分页
+    page = Paginator(data,5)
+    # 获取当前页码数
+    p = request.GET.get('p',1)
+    # 当前页的数据
+    data = page.page(p)
+
 
     return render(request,'myadmin/users/index.html',{'data':data})
 
@@ -41,28 +79,30 @@ def add(request):
 # 用户删除
 def delete(request):
     # 接受uid
-    uid = request.GET.get('uid')
-    # 获取用户对象
-    ob = Users.objects.get(id=uid)
+    if request.is_ajax():
+        uid = request.GET.get('uid')
+        # 获取用户对象
+        ob = Users.objects.get(id=uid)
 
-    # 判断当前用户是否使用了默认头像
-    if ob.pic != '/static/pics/user.gif':
+        # 判断当前用户是否使用了默认头像
+        if ob.pic != '/static/pics/user.gif':
+
+            try:
+                # 删除头像
+                os.remove(BASE_DIR+ob.pic)
+            except:
+                data = {'error':1,'msg':'文件删除失败'}
+                return JsonResponse(data)
 
         try:
-            # 删除头像
-            os.remove(BASE_DIR+ob.pic)
+            # 执行删除
+            ob.delete()
+            data = {'error':0,'msg':'删除成功'}
         except:
-            data = {'error':1,'msg':'文件删除失败'}
-            return JsonResponse(data)
+            data = {'error':2,'msg':'数据删除失败'}
 
-    try:
-        # 执行删除
-        ob.delete()
-        data = {'error':0,'msg':'删除成功'}
-    except:
-        data = {'error':2,'msg':'数据删除失败'}
-
-    return JsonResponse(data)
+        return JsonResponse(data)
+    return JsonResponse({'error':4,'msg':'请求错误'})
 
 
 
@@ -119,3 +159,18 @@ def uploads(file):
     destination.close()
 
     return '/static/pics/'+filename
+
+def status(request):
+
+    if request.is_ajax():
+        try:
+            ob = Users.objects.get(id=request.GET['uid'])
+
+            ob.status = request.GET['status']
+
+            ob.save()
+
+            return JsonResponse({'code':0,'msg':'状态修改成功'})
+        except:
+            return JsonResponse({'code':1, 'msg': '状态修改失败'})
+    return JsonResponse({'error': 4, 'msg': '请求错误'})

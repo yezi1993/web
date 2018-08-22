@@ -35,4 +35,7 @@ urlpatterns = [
     url(r'^user/update/$', UserViews.update, name='myadmin_user_update'),
     # 用户删除
     url(r'^user/delete/$', UserViews.delete, name='myadmin_user_del'),
+    # 修改用户状态
+    url(r'^user/status/$',UserViews.status,name='myadmin_user_status'),
+
 ]

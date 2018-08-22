@@ -1,12 +1,12 @@
 $(function() {
     // 读取body data-type 判断是哪个页面然后执行相应页面方法，方法在下面。
     var dataType = $('body').attr('data-type');
-    console.log(dataType);
-    for (key in pageData) {
-        if (key == dataType) {
-            pageData[key]();
-        }
-    }
+    // console.log(dataType);
+    // for (key in pageData) {
+    //     if (key == dataType) {
+    //         pageData[key]();
+    //     }
+    // }
     //     // 判断用户是否已有自己选择的模板风格
     //    if(storageLoad('SelcetColor')){
     //      $('body').attr('class',storageLoad('SelcetColor').Color)
@@ -18,7 +18,7 @@ $(function() {
     autoLeftNav();
     $(window).resize(function() {
         autoLeftNav();
-        console.log($(window).width())
+        // console.log($(window).width())
     });
 
     //    if(storageLoad('SelcetColor')){
