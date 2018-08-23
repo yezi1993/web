@@ -6,11 +6,12 @@ from django.core.paginator import Paginator
 
 import os
 from web.settings import BASE_DIR
+
 # 用户列表页
 def index(request):
 
     data = Users.objects.filter()
-
+    # 用户搜索
     types = request.GET.get('types')
     keywords = request.GET.get('keywords')
     if types == 'username':
@@ -30,7 +31,6 @@ def index(request):
             data = data.filter(sex='1')
         elif keywords == '女':
             data = data.filter(sex='0')
-
 
     if types == 'status':
         if keywords == '正常':
@@ -140,9 +140,6 @@ def update(request):
     except:
         return HttpResponse('<script>alert("会员编辑失败");history.back(-1);</script>')
 
-
-
-    return HttpResponse('222')
 
 # 处理文件上传
 def uploads(file):

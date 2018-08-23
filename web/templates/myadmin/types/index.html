@@ -1,0 +1,164 @@
+{% extends 'myadmin/index.html' %}
+{% block title %}
+<title>分类列表</title>
+{% endblock %}
+
+{% block con %}
+<div class="container-fluid am-cf">
+    <div class="row">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+            <div class="page-header-heading">
+                <span class="am-icon-user page-header-heading-icon"></span> 
+                分类列表
+            </div>
+        </div>
+        <div class="am-u-lg-3 tpl-index-settings-button">
+            <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>
+        </div>
+    </div>
+</div>
+
+<div class="row-content am-cf"> 
+   <div class="row"> 
+    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+        <div class="widget am-cf">
+            <div class="widget-head am-cf">
+                <div class="widget-title  am-cf">分类列表</div>
+
+
+            </div>
+            <div class="widget-body  am-fr">
+
+                <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+                    <div class="am-form-group">
+                        <div class="am-btn-toolbar">
+                            <div class="am-btn-group am-btn-group-xs">
+                                <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
+                                <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
+                                <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
+                                <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form>
+                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+                        <div class="am-form-group tpl-table-list-select">
+                            <select name="types" data-am-selected="{btnSize: 'sm'}" style="display: none;">
+                                <option value="username">用户名</option>
+                                <option value="phone">手机号</option>
+                                <option value="email">邮箱</option>
+                                <option value="age">年龄</option>
+                                <option value="sex">性别</option>
+                                <option value="status">状态</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+                        <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+                            <input name="keywords" type="text" class="am-form-field ">
+                            <span class="am-input-group-btn">
+                            <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"></button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+                <div class="am-u-sm-12">
+                    <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black ">
+                        <thead>
+                            <tr>
+                                <th>分类编号</th>
+                                <th>分类名称</th>
+                                <th>所属父类</th>
+                                <th>path</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for v in typeslist %}
+                            <tr>
+                                <td class="am-text-middle">{{ v.id }}</td>
+                                <td class="am-text-middle setname" tid="{{ v.id }}">
+                                    {% if v.pid != 0 %}|---{% endif %} <span class="name" >{{ v.name }}</span></td>
+                                <td class="am-text-middle">{{ v.pname }}</td>
+                                <td class="am-text-middle">{{ v.path }}</td>
+                                <td class="am-text-middle">
+                                    <div class="tpl-table-black-operation">
+                                        <a uid="{{ v.id }}" href="javascript:;" class="tpl-table-black-operation-del">
+                                            <i class="am-icon-trash"></i> 删除
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            <!-- more data -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="am-u-lg-12 am-cf">
+
+                    <div class="am-fr">
+                        <ul class="am-pagination tpl-pagination">
+                            <!--<li class="am-active"><a href="#">1</a></li>-->
+                            {% load pagetag %}
+                            {# {% ShowPages data.paginator.num_pages request %} #}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   </div> 
+</div>
+<script type="text/javascript">
+    // 给删除按钮绑定单击事件
+    $('.tpl-table-black-operation-del').click(function(){
+        // 获取当前的id
+        var uid = $(this).attr('uid');
+
+        var td = $(this);
+
+        // 发送ajax请求
+        $.get('{% url "myadmin_types_del" %}',{'uid':uid},function(data){
+
+            if(data['error'] == '0'){
+                // 如果删除成功,则移除当前的整个tr数据
+                td.parents('tr').remove();
+            }
+            // 弹出提示信息
+            alert(data['mgs']);
+        })
+    })
+    $('.setname').dblclick(function(){
+        var tid = $(this).attr('tid');
+
+        var name = $(this).find('.name').text();
+
+        var inp = $(' <input type="text" value="'+name+'" style="color: black">');
+
+        var td = $(this)
+
+        $(this).find('.name').html(inp);
+
+        inp.select()
+
+        inp.blur(function(){
+
+            var newname = $(this).val();
+
+            if(newname==name){
+                td.find('.name').html(name)
+            }else{
+                $.get("{% url 'myadmin_types_edit' %}",{'uid':tid,"name":newname},function(data){
+                    if(data['error']=='0'){
+                        td.find('.name').html(newname)
+                    }
+                    alert(data['mgs']);
+                },'json')
+            }
+        })
+    })
+
+
+</script>
+{% endblock %}

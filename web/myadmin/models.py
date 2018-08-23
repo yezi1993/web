@@ -22,3 +22,13 @@ class Users(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
     # 修改时间
     update_time = models.DateTimeField(auto_now=True)
+
+
+
+class Types(models.Model):
+    # 分类名称
+    name = models.CharField(max_length=20)
+    # 属于哪个分类 0为顶级分类
+    pid = models.IntegerField()
+    # 记录父级跟自己的id
+    path = models.CharField(max_length=30)
