@@ -19,7 +19,7 @@ def GetTypes():
     # 返回处理号的数据
     return obs
 
-# 用户列表页
+# 分类列表页
 def index(request):
 
     obs = GetTypes()
@@ -28,7 +28,7 @@ def index(request):
 
     return render(request,'myadmin/types/index.html',cont)
 
-# 用户添加
+# 分类添加
 def add(request):
 
     if request.method == 'GET':
@@ -52,7 +52,7 @@ def add(request):
             return HttpResponse('<script>alert("分类编辑失败");history.back(-1);</script>')
 
 
-# 用户删除
+# 分类删除
 def delete(request):
     if request.is_ajax():
         ob = Types.objects.get(id=request.GET['uid'])
@@ -67,7 +67,7 @@ def delete(request):
     return JsonResponse({'error':'1','mgs':'非法请求'})
 
 
-# 用户编辑
+# 分类编辑
 def edit(request):
     if request.is_ajax():
 
