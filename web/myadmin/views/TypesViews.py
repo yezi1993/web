@@ -23,8 +23,13 @@ def GetTypes():
 def index(request):
 
     obs = GetTypes()
+
+    keywords = request.GET.get('keywords',None)
+    if keywords:
+        obs = obs.filter(name__contains=keywords)
+
     # 实例化分页
-    page = Paginator(obs, 2)
+    page = Paginator(obs, 10)
     # 获取当前页码数
     p = request.GET.get('p', 1)
     # 当前页的数据
