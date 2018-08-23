@@ -10,7 +10,7 @@ def ShowPages(count,request):
     res = request.GET.dict()
     kws = ''
     for k,v in res.items():
-        if k != p:
+        if k != 'p':
             kws += '&'+k+'='+v
     # print(kws)
 

@@ -23,6 +23,12 @@ def GetTypes():
 def index(request):
 
     obs = GetTypes()
+    # 实例化分页
+    page = Paginator(obs, 2)
+    # 获取当前页码数
+    p = request.GET.get('p', 1)
+    # 当前页的数据
+    obs = page.page(p)
 
     cont = {'typeslist':obs}
 

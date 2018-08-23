@@ -44,14 +44,7 @@
                 <form>
                     <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
                         <div class="am-form-group tpl-table-list-select">
-                            <select name="types" data-am-selected="{btnSize: 'sm'}" style="display: none;">
-                                <option value="username">用户名</option>
-                                <option value="phone">手机号</option>
-                                <option value="email">邮箱</option>
-                                <option value="age">年龄</option>
-                                <option value="sex">性别</option>
-                                <option value="status">状态</option>
-                            </select>
+
                         </div>
                     </div>
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
@@ -101,7 +94,7 @@
                         <ul class="am-pagination tpl-pagination">
                             <!--<li class="am-active"><a href="#">1</a></li>-->
                             {% load pagetag %}
-                            {# {% ShowPages data.paginator.num_pages request %} #}
+                            {% ShowPages typeslist.paginator.num_pages request %}
                         </ul>
                     </div>
                 </div>
