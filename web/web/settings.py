@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myadmin',
     'home',
+    'ueditor',
+    'dysms',
 ]
 
 MIDDLEWARE = [

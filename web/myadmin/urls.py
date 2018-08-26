@@ -14,10 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from . views import IndexViews,UserViews,TypesViews
+from . views import IndexViews,UserViews,TypesViews,GoodsViews
 
 
 urlpatterns = [
+
     # 后台主页
     url(r'^$',IndexViews.index,name='myadmin_index'),
     # 后台登录
@@ -48,4 +49,13 @@ urlpatterns = [
     url(r'^types/edit/$', TypesViews.edit, name='myadmin_types_edit'),
 
 
+    # 商品管理
+    url(r'^goods/add/', GoodsViews.add, name='myadmin_goods_add'),
+    # 商品主页
+    url(r'^goods/index/', GoodsViews.index, name='myadmin_goods_index'),
+    # 商品编辑
+    url(r'^goods/edit/(?P<uid>[0-9]+)/$', GoodsViews.edit, name='myadmin_goods_edit'),
+    url(r'^goods/update/$', GoodsViews.update, name='myadmin_goods_update'),
+    # 商品删除
+    url(r'^goods/delete/$', GoodsViews.delete, name='myadmin_goods_delete'),
 ]

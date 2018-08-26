@@ -68,7 +68,7 @@ def delete(request):
     if request.is_ajax():
         ob = Types.objects.get(id=request.GET['uid'])
 
-        res = Types.objects.filter(pid = ob.id)
+        res = Types.objects.filter(pid = ob.id).count()
         if res:
             return JsonResponse({'error': '2', 'mgs': '删除失败，此分类下还有子类不允许删除'})
         else:
