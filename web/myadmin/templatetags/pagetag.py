@@ -3,6 +3,7 @@ from django.utils.html import format_html
 
 register = template.Library()
 
+# 自定义分页
 @register.simple_tag
 def ShowPages(count,request):
 
@@ -54,3 +55,21 @@ def ShowPages(count,request):
     pages += '<li><a href="?p=' + str(count) + kws + '">尾页</a></li>'
 
     return format_html(pages)
+
+
+# 自定义获取标签
+@register.simple_tag
+def GetNavList():
+    from myadmin.models import Types
+    from django.core.urlresolvers import reverse
+    # 获取所有的二级分类
+    navlist = Types.objects.exclude(pid=0)
+    s = ''
+    for i in navlist:
+        s += '''
+                <li class="layout-header-nav-item">
+                  <a href="{u}" class="layout-header-nav-link">{name}</a>
+                </li>
+            '''.format(name=i.name, u=reverse('home_list', args=(i.id,)))
+    return format_html(s)
+

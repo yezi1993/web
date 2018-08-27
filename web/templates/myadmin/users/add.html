@@ -105,8 +105,11 @@
                                 <img width="200" src="/static/myadmin/img/a5.png" alt="" /> 
                            </div>  -->
                         <button type="button" class="am-btn am-btn-danger am-btn-sm"> <i class="am-icon-cloud-upload"></i> 添加封面图片</button> 
-                        <input name="pic" type="file" multiple="" />
-                      </div> 
+                        <input name="face" type="file" multiple="" id="file0" multiple="multiple"/>
+                      </div>
+                     <div>
+                         <img src="" id="img0" width="120" class="hide">
+                     </div>
                  </div> 
             </div> 
 
@@ -124,4 +127,34 @@
     </div> 
    </div> 
 </div>
+<script type="text/javascript">
+     $("#file0").change(function(){
+    var objUrl = getObjectURL(this.files[0]) ;
+    console.log("objUrl = "+objUrl) ;
+    if (objUrl)
+    {
+      $("#img0").attr("src", objUrl);
+      $("#img0").removeClass("hide");
+    }
+  }) ;
+  //建立一個可存取到該file的url
+  function getObjectURL(file)
+  {
+    var url = null ;
+    if (window.createObjectURL!=undefined)
+    { // basic
+      url = window.createObjectURL(file) ;
+    }
+    else if (window.URL!=undefined)
+    {
+      // mozilla(firefox)
+      url = window.URL.createObjectURL(file) ;
+    }
+    else if (window.webkitURL!=undefined) {
+      // webkit or chrome
+      url = window.webkitURL.createObjectURL(file) ;
+    }
+    return url ;
+  }
+</script>
 {% endblock %}

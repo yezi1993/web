@@ -16,6 +16,23 @@ Including another URLconf
 from django.conf.urls import url
 from . import views
 
+
 urlpatterns = [
-    url(r'^$',views.index,name='home_index'),
+
+    # 首页
+    url(r'^$', views.index,name="home_index"),
+    # 列表
+    url(r'^list/(?P<tid>[0-9]+)/$', views.list,name="home_list"),
+    # 详情
+    url(r'^info/(?P<gid>[0-9]+)/$', views.info,name="home_info"),
+    # 注册
+    url(r'^register/$', views.register,name="home_register"),
+    # 登录
+    url(r'^login/$', views.login,name="home_login"),
+    # 退出登录
+    url(r'^logout/$', views.logout,name="home_logout"),
+    # 发送手机验证码
+    url(r'^sendSMS/$', views.sendSMS,name="home_sendSMS"),
+
 ]
+

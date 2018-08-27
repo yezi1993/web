@@ -1,9 +1,9 @@
-{% extends 'myhome/base.html' %}
+{% extends 'home/base.html' %}
 
 
 {% block mycss %}
-  <link rel="stylesheet" type="text/css" href="/static/myhome/css/list.css">
-  <link rel="stylesheet" type="text/css" href="/static/myhome/css/list-app.css">
+  <link rel="stylesheet" type="text/css" href="/static/home/css/list.css">
+  <link rel="stylesheet" type="text/css" href="/static/home/css/list-app.css">
 {% endblock %}
 
 {% block con %}
@@ -13,8 +13,8 @@
       <!-- 面包屑 导航 -->
       <div class="ml-nav hidden-xs hidden-sm">
             <ol class="breadcrumb">
-              <li><a href="./index.html">首页</a></li>
-              <li><a href="#">全部商品</a></li>
+              <li><a href="/">首页</a></li>
+              <li><a href="#">{{data.name}}</a></li>
             </ol>
       </div>
       <!-- 面包屑 导航 E-->
@@ -26,15 +26,11 @@
           <div class="mod-value">
             <div class="mod-value-list">
               <ul>
+                {% for i in data.sub %}
                 <li class="">
-                  <a href="javascript:void(0)" title="全部">全部</a>
+                  <a href="{% url 'home_list' i.id %}" {% if i.id == data.id %} style="color:#00c3f5;" {% endif %} title="{{i.name}}">{{i.name}}</a>
                 </li>
-                <li class="">
-                  <a href="javascript:void(0)" title="魅族系列">魅族系列</a>
-                </li>
-                <li class="">
-                  <a href="javascript:void(0)" title="魅蓝系列">魅蓝系列</a>
-                </li>
+                {% endfor %}
               </ul>
             </div>
           </div>
@@ -97,6 +93,8 @@
       <!-- 商品列表 -->
       <div class="goods-list">
         <div class="row">
+
+          {% for i in data.goods %}
           <div class="col-md-3 col-sm-6 col-xs-6">
             <div class="gl-item">
               <div class="compare-btn-list" style="display: none;">
@@ -107,60 +105,31 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                   <div role="tabpanel" class="tab-pane active mod-pic" id="list-p1">
-                    <a href="./meilanx.html">
-                      <img class="lazy j-modProduct" src="/static/myhome/img/list1.jpg" width="220" height="220">
-                    </a>
-                  </div>
-                  <div role="tabpanel" class="tab-pane mod-pic" id="list-p2">
-                    <a href="./meilanx.html">
-                      <img class="lazy j-modProduct" src="/static/myhome/img/list04.jpg" width="220" height="220">
-                    </a>
-                  </div>
-                  <div role="tabpanel" class="tab-pane mod-pic" id="list-p3">
-                    <a href="./meilanx.html">
-                      <img class="lazy j-modProduct" src="/static/myhome/img/list05.jpg" width="220" height="220">
+                    <a href="{% url 'home_info' i.id %}">
+                      <img class="lazy j-modProduct" src="{{i.pic}}" width="220" height="220">
                     </a>
                   </div>
                 </div>
 
                 <!-- Nav tabs -->
-                <div class="item-slide j-pro-wrap  hidden-xs hidden-sm">
-                  <ul class="nav nav-tabs  " role="tablist">
-                    <li role="presentation" class="active">
-                      <a href="#list-p1" aria-controls="list-p1" role="tab" data-toggle="tab">
-                        <img class="lazy" src="/static/myhome/img/list01.jpg" style="display: inline;" width="40" height="40">
-                      </a>
-                    </li>
-                    <li role="presentation">
-                      <a href="#list-p2" aria-controls="list-p2" role="tab" data-toggle="tab">
-                        <img class="lazy" src="/static/myhome/img/list02.jpg" style="display: inline;" width="40" height="40">
-                      </a>
-                    </li>
-                    <li role="presentation">
-                      <a href="#list-p3" aria-controls="list-p3" role="tab" data-toggle="tab">
-                        <img class="lazy" src="/static/myhome/img/list03.jpg" style="display: inline;" width="40" height="40">
-                      </a>
-                    </li>
-                  </ul>
-                </div>
                 <div class="slide-btn j-modBtns" style="display: none;">
                     <span class="prev iconfont disabled"></span>
                     <span class="next iconfont"></span>
                 </div>
 
-                <h2>魅族 PRO 7</h2>
+                <h2>{{i.name}}</h2>
                 <h3 class="red" title="现货速发  双瞳如小窗 佳景观历历">
                 现货速发  双瞳如小窗 佳景观历历
                 </h3>
                 <dd class="mod-price">
                     <span>￥</span>
-                    <span class="vm-price">2880</span>
+                    <span class="vm-price">{{i.price}}</span>
                     <span class="vm-start">起</span>
                 </dd>
               </div>
             </div>
           </div>
-         
+          {% endfor %}
         </div>
         
       </div>
@@ -176,7 +145,7 @@
               <li class="rs-item" style="width: 245.6px; margin-right: 5px; float: left; display: block;">
                 <a class="rs-item-wrap" title="魅蓝 Note5" href="#" target="_blank">
                   <div class="mod-pic">
-                    <img src="/static/myhome/img/list81.jpg" style="display: inline;" width="180" height="180">
+                    <img src="/static/home/img/list81.jpg" style="display: inline;" width="180" height="180">
                   </div>
                   <div class="mod-desc">
                     <h4 class="vm-title">魅蓝 Note5 </h4>
@@ -191,7 +160,7 @@
               <li class="rs-item" style="width: 245.6px; margin-right: 5px; float: left; display: block;">
                 <a class="rs-item-wrap" title="魅蓝 5s" href="#" target="_blank">
                   <div class="mod-pic">
-                          <img src="/static/myhome/img/list82.jpg" style="display: inline;" width="180" height="180">
+                          <img src="/static/home/img/list82.jpg" style="display: inline;" width="180" height="180">
                   </div>
                   <div class="mod-desc">
                       <h4 class="vm-title">魅蓝 5s </h4>
@@ -205,7 +174,7 @@
               <li class="rs-item" style="width: 245.6px; margin-right: 5px; float: left; display: block;">
                 <a class="rs-item-wrap" title="魅族 MX6" href="#" target="_blank">
                   <div class="mod-pic">
-                          <img src="/static/myhome/img/list83.jpg" style="display: inline;" width="180" height="180">
+                          <img src="/static/home/img/list83.jpg" style="display: inline;" width="180" height="180">
                       </div>
                   <div class="mod-desc">
                       <h4 class="vm-title">魅族 MX6 </h4>
@@ -219,7 +188,7 @@
               <li class="rs-item" style="width: 245.6px; margin-right: 5px; float: left; display: block;">
                 <a class="rs-item-wrap" title="魅蓝 Max" href="#" target="_blank">
                   <div class="mod-pic">
-                    <img src="/static/myhome/img/list84.jpg" style="display: inline;" width="180" height="180">
+                    <img src="/static/home/img/list84.jpg" style="display: inline;" width="180" height="180">
                   </div>
                   <div class="mod-desc">
                     <h4 class="vm-title">魅蓝 Max </h4>
@@ -233,7 +202,7 @@
               <li class="rs-item" style="width: 245.6px; margin-right: 5px; float: left; display: block;">
                 <a class="rs-item-wrap" title="魅蓝 E2" href="#" target="_blank">
                   <div class="mod-pic">
-                    <img src="/static/myhome/img/list85.jpg" style="display: inline;" width="180" height="180">
+                    <img src="/static/home/img/list85.jpg" style="display: inline;" width="180" height="180">
                   </div>
                   <div class="mod-desc">
                       <h4 class="vm-title">魅蓝 E2 </h4>

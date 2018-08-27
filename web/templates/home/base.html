@@ -8,40 +8,40 @@
     <title>魅族官网商城-提供魅族手机 PRO系列、MX系列、魅蓝（Note）系列的预约和购买</title>
       <meta name="description" content="魅族在线商城是魅族面向全国服务的官方电商平台，提供魅族PRO系列、MX系列、魅蓝（Note）系列的手机、配件和智能硬件的预约和购买。官方正品，全场包邮。">
       <meta name="Keywords" content="魅族手机官网商城、魅族官方在线商店、魅族在线商城、魅族官网在线商店、魅族商城">
-      <link href="/static/myhome/img/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-      <link href="/static/myhome/img/favicon.ico" rel="icon" type="image/x-icon">
+      <link href="/static/home/img/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+      <link href="/static/home/img/favicon.ico" rel="icon" type="image/x-icon">
     <!-- Bootstrap -->
-    <link href="/static/myhome/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/home/css/bootstrap.min.css" rel="stylesheet">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="/static/myhome/js/jquery-1.12.4.min.js"></script>
+    <script src="/static/home/js/jquery-1.12.4.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/static/myhome/js/bootstrap.min.js"></script>
+    <script src="/static/home/js/bootstrap.min.js"></script>
     <!-- 兼任ie9以下 -->
     <!--[if lt IE 9]>
             <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
             <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
     <!-- 自定义 -->
-    <link rel="stylesheet" type="text/css" href="/static/myhome/css/global.css">
-    <link rel="stylesheet" type="text/css" href="/static/myhome/css/app.css">
-    
+    <link rel="stylesheet" type="text/css" href="/static/home/css/global.css">
+    <link rel="stylesheet" type="text/css" href="/static/home/css/app.css">
+
     {% block mycss %}
 
     {% endblock %}
 
-    <script type="text/javascript" src="/static/myhome/js/rem.js"></script>
-    <script type="text/javascript" src="/static/myhome/js/topNav.js"></script>
+    <script type="text/javascript" src="/static/home/js/rem.js"></script>
+    <script type="text/javascript" src="/static/home/js/topNav.js"></script>
 
 </head>
 <body>
-  <!-- 导航 --> 
+  <!-- 导航 -->
   <div class="layout-header" id="scroll-wrap">
     <nav class="navbar navbar-default navbar-fixed-top header hidden-xs hidden-sm">
       <div class="container clearfix">
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <div class="layout-header-logo navbar-left">
-              <a target="_blank" href="./index.html" class="layout-header-logo-link" alt="魅族科技">
-                <img src="/static/myhome/img/logo.png">
+              <a target="_blank" href="{% url 'home_index' %}" class="layout-header-logo-link" alt="魅族科技">
+                <img src="/static/home/img/logo.png">
               </a>
           </div>
           <ul class="nav navbar-nav navbar-right layout-header-service clearfix">
@@ -57,24 +57,24 @@
                   <ul class="layout-user-downmenu-list">
                     {% if  request.session.VipUser %}
                       <li class="layout-user-downmenu-item">
-                        <a href="{% url 'myhome_logout' %}" class="layout-user-downmenu-link">
+                        <a href="{% url 'home_logout' %}" class="layout-user-downmenu-link">
                           退出登录
                         </a>
                       </li>
                     {% else %}
                     <li class="layout-user-downmenu-item">
-                      <a href="{% url 'myhome_login' %}" class="layout-user-downmenu-link">
+                      <a href="{% url 'home_login' %}" class="layout-user-downmenu-link">
                         立即登录
                       </a>
                     </li>
-                    
+
                     <li class="layout-user-downmenu-item">
-                      <a href="{% url 'myhome_register' %}" target="_blank" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_register">
+                      <a href="{% url 'home_register' %}" target="_blank" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_register">
                         立即注册
                       </a>
                     </li>
                     {% endif %}
-                    
+
                     <li class="layout-user-downmenu-item">
                       <a href="#" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_myorder">我的订单</a>
                     </li>
@@ -93,19 +93,20 @@
           </ul>
           <ul class="nav navbar-nav navbar-right layout-header-nav clearfix">
             <li class="layout-header-nav-item">
-              <a href="./index.html" class="layout-header-nav-link">魅族商城 </a><p class="line-top hidden-xs"></p>
+              <a href="{% url 'home_index' %}" class="layout-header-nav-link">魅族商城 </a><p class="line-top hidden-xs"></p>
             </li>
-            <li class="layout-header-nav-item">
-              <a href="./list.html" class="layout-header-nav-link">魅族手机</a>
-            </li>
-            <li class="layout-header-nav-item"><a href="./list.html" class="layout-header-nav-link">魅蓝手机</a></li>
-            <li class="layout-header-nav-item"><a href="./list.html" class="layout-header-nav-link">魅族声学</a></li>
-            <li class="layout-header-nav-item"><a href="#" class="layout-header-nav-link">智能·配件</a></li>
-            <li class="layout-header-nav-item"><a href="#" class="layout-header-nav-link">服务</a></li>
-            <li class="layout-header-nav-item"><a href="#" class="layout-header-nav-link">专卖店</a></li>
-            <li class="layout-header-nav-item"><a href="#" class="layout-header-nav-link">Flyme</a></li>
-            <li class="layout-header-nav-item"><a href="#" class="layout-header-nav-link">社区</a></li>                          
-          </ul>           
+
+
+            <!--<li class="layout-header-nav-item">-->
+              <!--<a href="./list.html" class="layout-header-nav-link">魅族手机</a>-->
+            <!--</li>-->
+            {% load pagetag %}
+
+            {% GetNavList %}
+
+
+            <li class="layout-header-nav-item"><a href="#" class="layout-header-nav-link">社区</a></li>
+          </ul>
         </div>
          <!-- /.navbar-collapse -->
       </div>
@@ -117,7 +118,7 @@
            <li class="layout-header-nav-child-item">
              <a class="layout-header-nav-child-link" target="_blank" href="#">
                <div class="layout-header-nav-child-box">
-                 <img src="/static/myhome/img/nav1.jpg" class="layout-header-nav-child-img" alt="PRO 7">
+                 <img src="/static/home/img/nav1.jpg" class="layout-header-nav-child-img" alt="PRO 7">
                </div>
                <p class="layout-header-nav-child-name">
                  PRO 7
@@ -126,11 +127,11 @@
                  <span class="layout-header-nav-child-price">2880</span>起
                </p>
              </a>
-           </li>  
+           </li>
            <li class="layout-header-nav-child-item">
              <a class="layout-header-nav-child-link" target="_blank" href="#">
                <div class="layout-header-nav-child-box">
-                 <img src="/static/myhome/img/nav2.png" class="layout-header-nav-child-img" alt="PRO 7 Plus">
+                 <img src="/static/home/img/nav2.png" class="layout-header-nav-child-img" alt="PRO 7 Plus">
                </div>
                <p class="layout-header-nav-child-name">
                  PRO 7 Plus
@@ -143,7 +144,7 @@
            <li class="layout-header-nav-child-item">
              <a class="layout-header-nav-child-link" target="_blank" href="#">
                <div class="layout-header-nav-child-box">
-                 <img src="/static/myhome/img/nav3.jpg" class="layout-header-nav-child-img" alt="PRO 6 Plus">
+                 <img src="/static/home/img/nav3.jpg" class="layout-header-nav-child-img" alt="PRO 6 Plus">
                </div>
                <p class="layout-header-nav-child-name">
                  PRO 6 Plus
@@ -156,7 +157,7 @@
            <li class="layout-header-nav-child-item">
              <a class="layout-header-nav-child-link" target="_blank" href="#">
                <div class="layout-header-nav-child-box">
-                 <img src="/static/myhome/img/nav4.png" class="layout-header-nav-child-img" alt="PRO 6s">
+                 <img src="/static/home/img/nav4.png" class="layout-header-nav-child-img" alt="PRO 6s">
                </div>
                <p class="layout-header-nav-child-name">
                  PRO 6s
@@ -169,7 +170,7 @@
            <li class="layout-header-nav-child-item">
              <a class="layout-header-nav-child-link" target="_blank" href="#">
                <div class="layout-header-nav-child-box">
-                 <img src="/static/myhome/img/nav5.jpg" class="layout-header-nav-child-img" alt="MX6">
+                 <img src="/static/home/img/nav5.jpg" class="layout-header-nav-child-img" alt="MX6">
                </div>
                <p class="layout-header-nav-child-name">
                  MX6
@@ -179,7 +180,7 @@
                </p>
              </a>
            </li>
-           
+
          </ul>
        </div>
      </div>
@@ -189,7 +190,7 @@
       <header id="header" class="header">
         <div class="logo">
           <a href="./index.html">
-              <img src="/static/myhome/img/app/mlogo1.jpg">
+              <img src="/static/home/img/app/mlogo1.jpg">
           </a>
         </div>
 

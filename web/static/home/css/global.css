@@ -860,7 +860,7 @@ ul,li{
     	top:0;
     	left:0;
     	width: 100px;
-    	height: 30px;`
+    	height: 30px;
 }
 .mbf-nav{
 	margin-left: 110px;
@@ -1256,7 +1256,8 @@ ul,li{
 	opacity:1;
 	-webkit-transform:perspective(400px);
 	transform:perspective(400px);
-}/*楼层鼠标经过动画 E*/
+}
+/*楼层鼠标经过动画 E*/
 
 /*登录下拉动画*/
 @-webkit-keyframes showUserLoginDownMenu {
@@ -1287,6 +1288,7 @@ ul,li{
 100% {
 	height:138px
 }
+
 /*登录下拉动画 E*/
 
 /*动画 E*/
