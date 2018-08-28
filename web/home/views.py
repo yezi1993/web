@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from django.contrib.auth.hashers import make_password,check_password
 
 from myadmin.models import Users,Types,Goods
@@ -7,11 +7,13 @@ from myadmin.models import Users,Types,Goods
 # Create your views here.
 # 首页
 def index(request):
+    # 获取顶级分类
     data = Types.objects.filter(pid=0)
 
+    # 将所有二级分类保存起来
     for i in data:
         i.sub = Types.objects.filter(pid=i.id)
-
+    # 获取所有的商品
     goods = Goods.objects.filter()
     data.goods = goods
 
@@ -21,8 +23,10 @@ def index(request):
 
 #  列表
 def list(request,tid):
+    # 获取分类id
     data = Types.objects.get(id=tid)
 
+    # 判断是不是顶级分类
     if data.pid == 0:
         data.sub = Types.objects.filter(pid=data.id)
         data.goods = Goods.objects.filter(tid__in=data.sub)
@@ -123,3 +127,64 @@ def sendSMS(request):
     res = demo_sms_send.send(code, phone)
 
     return HttpResponse(res)
+
+
+def cartadd(request):
+    if request.method == 'GET':
+        gid = request.GET.get('gid')
+        num = int(request.GET.get('num'))
+        # 获取session中购物车的数据
+        data = request.session.get('cart',{})
+
+        # 判断要加入购物车的商品是否存在
+        if data.get(gid):
+            # 存在修改商品数量
+            data[gid]['num'] += num
+        else:
+            data[gid] = {'gid':gid,'num':num}
+
+        # 将配置好的购物车数据，存到session
+        request.session['cart'] = data
+
+    return  JsonResponse({'error':0,'msg':'成功加入购物车！！！'})
+
+# 购物车列表
+def cartlist(request):
+    # 获取所有的购物车的商品
+    data = request.session['cart']
+    
+    for k,v in data.items():
+        # ob =
+        data[k]['goods'] = Goods.objects.get(id=k)
+
+
+    return render(request,'home/cartlist.html',{'data':data})
+
+# 购物车修改
+def cartedit(request):
+    # 接受 商品id,数量
+    gid = request.GET.get('gid')
+    num = request.GET.get('num')
+
+    # 在session中获取购物车数据
+    data = request.session['cart']
+
+    # 修改商品数量
+    data[gid]['num'] = int(num)
+
+    # 把修改好的购物车数据,再放回到session
+    request.session['cart'] = data
+
+    return JsonResponse({'error':0,'msg':'购物车商品更新成功'})
+
+# 删除购物车里的商品
+def cartdelete(request):
+    gid = request.GET.get('gid')
+
+    data = request.session['cart']
+
+    data.pop(gid)
+
+    request.session['cart'] = data
+
+    return JsonResponse({'error':'0','msg':'商品删除成功'})

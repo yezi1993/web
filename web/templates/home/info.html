@@ -120,7 +120,7 @@
             <dl class="property-service-item clearfix">
                 <dt class="vm-metatit">支<span class="s-space"></span><span class="s-space"></span>持：
                 </dt>
-                <dd class="mod-bd" id="J_prodService">
+                <dd class="mod-bd" id="">
                   <span><i class="glyphicon glyphicon-ok-circle" aria-hidden="true"></i>花呗分期</span>
                   <span><a href="#" target="_blank"><i class="glyphicon glyphicon-ok-circle" aria-hidden="true"></i>百城速达</a></span>
                   <span><i class="glyphicon glyphicon-ok-circle" aria-hidden="true"></i>顺丰包邮</span>
@@ -178,8 +178,8 @@
                 </dd>
             </dl>
             <div class="property-buy-action">
-                <a data-mtype="store_de_buy" href="javascript:void(0);" id="J_btnBuy" class="btn btn-danger btn-lg mr20">立即购买</a>
-                <a data-mtype="store_de_cart" href="javascript:void(0);" id="J_btnAddCart" class="btn btn-primary btn-lg hide" style="display:inline-block;"><i></i>加入购物车</a>
+                <a data-mtype="store_de_buy" href="javascript:void(0);" id="J_btnBuy" class="btn btn-danger btn-lg mr20 hide">立即购买</a>
+                <a gid="{{data.id}}" data-mtype="store_de_cart" href="javascript:void(0);" id="J_btnAddCart" class="btn btn-primary btn-lg " style="display:inline-block;"><i></i>加入购物车</a>
                 <span class="vm-service" id="J_panicBuyingWrap"></span>
             </div>
           </div>
@@ -228,11 +228,11 @@
             </div>
             <div class="prod-info-price">
                 <div class="mod-price">
-                    <small>¥ </small><span id="J_price" class="vm-money">1499.00</span>
+                    <small>¥ </small><span class="vm-money">1499.00</span>
                 </div>
-                <div class="mod-original" id="J_originalPrice" style="display:none">
+                <div class="mod-original"  style="display:none">
                 </div>
-                <div class="mod-countdown" id="J_discountCountDown" style="display:none">
+                <div class="mod-countdown"  style="display:none">
                 </div>
             </div>
             <div class="prod-info-installment" id="J_prodInstallment" style="display: block;">
@@ -249,7 +249,7 @@
               <li><i class="glyphicon glyphicon-ok-circle"></i>顺丰包邮</li>
               <li><i class="glyphicon glyphicon-ok-circle"></i>7天无理由退货</li>
             </ul>
-            <i class="glyphicon glyphicon-menu-right icon-enter" id="J_prodPromoEnter"></i>
+            <i class="glyphicon glyphicon-menu-right icon-enter"></i>
           </div>
           <div class="prod-selected" id="J_prodSelected">
             <label>已选</label>
@@ -257,18 +257,18 @@
                 <span class="vm-props s-selected" id="J_selectedProps">全网通公开版,流光金,32GB</span>
                 <span class="vm-quantity" id="J_selectedQuantity" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">×1</span>
             </p>
-            <i class="glyphicon glyphicon-menu-right icon-enter" id="J_prodPromoEnter"></i>
+            <i class="glyphicon glyphicon-menu-right icon-enter" ></i>
           </div>
           <div class="prod-suda" id="J_prodSuda">
             <div class="prod-suda-selector" id="J_sudaSelector">
                 <label>送至</label>
                 <span id="J_siteText" class="">广东 广州市</span>
-                <i class="glyphicon glyphicon-menu-right icon-enter" id="J_prodPromoEnter"></i>
+                <i class="glyphicon glyphicon-menu-right icon-enter" ></i>
             </div>
             <div class="prod-suda-info" style="display:none;">
               <p class="mod-bd">
                 <span id="J_siteStatus"></span>
-                <span id="J_installmentInfo"></span>
+                <span></span>
               </p>
             </div>
             <div class="prod-suda-supplier">
@@ -495,5 +495,13 @@
   </div>
   <script type="text/javascript">
     addMin()
+      $('#J_btnAddCart').click(function(){
+          var gid = $(this).attr('gid')
+          var num = $('#J_quantity').val()
+
+          $.get('{% url "home_cartadd" %}',{'gid':gid,'num':num},function(data){
+              alert(data['msg'])
+          },'json')
+      })
   </script>
 {% endblock %}

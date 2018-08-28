@@ -1,0 +1,191 @@
+{% extends 'home/base.html' %}
+
+{% block mycss %}
+	<link rel="stylesheet" type="text/css" href="/static/home/css/cart.css">
+	<link rel="stylesheet" type="text/css" href="/static/home/css/cart-app.css">
+{% endblock %}
+
+{% block con %}
+
+    <!-- 主内容区域 -->
+    <div class="mainbody cart" style="padding-top: 100px;">
+		<div class="container">
+			<!-- 购物车详情头 -->
+			<table class="cart-header">
+				<tbody>
+					<tr>
+						<td class="cart-col-select col-md-3 col-xs-3 col-sm-3">
+							<div class="cart-select-all JSelectAll">
+								<div class="mz-checkbox"></div>
+								<span class="cart-select-title">全选</span>
+							</div>
+						</td>
+						<td class="cart-col-name col-md-3 hidden-xs hidden-sm">商品</td>
+						<td class="cart-col-price col-md-2 hidden-xs hidden-sm">单价(元)</td>
+						<td class="cart-col-number col-md-2 hidden-xs hidden-sm">数量</td>
+						<td class="cart-col-total col-md-1 hidden-xs hidden-sm">小计(元)</td>
+						<td class="cart-col-ctrl col-md-1 hidden-xs hidden-sm">操作</td>
+					</tr>
+				</tbody>
+			</table><!-- 购物车详情头 E-->
+
+			<!-- 购物清单信息列表 -->
+
+        <div class="cart-merchant-list">
+            <div class="cart-merchant">
+                <table class="cart-merchant-body">
+                    <tbody>
+                       {% for k,v in data.items %}
+                        <tr class="cart-product">
+                            <td class="cart-col-select col-md-3 col-xs-4 col-sm-4">
+                                <div class="mz-checkbox "></div>
+                                <a href="{% url 'home_info' v.goods.id %}" class="cart-product-link" target="_blank">
+                                    <img src="{{ v.goods.pic }}" class="cart-product-img" alt="魅蓝 X">
+                                </a>
+                            </td>
+                            <td class="cart-col-name col-md-3 col-xs-8 col-sm-8">
+                                <a href="{% url 'home_info' v.goods.id %}" class="cart-product-link" target="_blank">
+                                  <p>{{ v.goods.name }}</p>
+                                </a>
+
+
+                            </td>
+                            <td class="cart-col-price col-md-2 hidden-xs hidden-sm">
+                                <p>
+                                    <span class="cart-product-price">{{ v.goods.price }}</span>
+                                </p>
+                            </td>
+                            <td class="cart-col-number col-md-2 hidden-xs hidden-sm">
+                                <div class="cart-product-number-adder">
+                                    <p class="cart-product-number-max show"></p>
+                                    <div class="mz-adder" gid="{{ v.goods.id }}">
+                                        <button f='-' class="mz-adder-subtract"></button>
+                                        <div class="mz-adder-num"><input class="mz-adder-input" value="{{ v.num }}" type="text"></div>
+                                        <button f='+' class="mz-adder-add"></button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="cart-col-total col-md-1 hidden-xs hidden-sm">
+                                {% load pagetag %}
+                                <span class="cart-product-price total">{% cheng v.goods.price v.num %}</span>
+
+                            </td>
+                            <td class="cart-col-ctrl col-md-1 hidden-xs hidden-sm">
+                                <div class="cart-product-remove" gid="{{ v.goods.id }}">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </div>
+                            </td>
+                        </tr>
+                       {% endfor %}
+
+                    </tbody>
+                </table>
+            </div><!-- 购物清单信息列表 E-->
+		</div>
+		<!-- 结算详情 -->
+		<div class="cart-footer" id="cartFooter">
+			<div class="container">
+			   <div class="cart-footer-left col-md-6 col-xs-4 col-sm-4">
+				   <div class="cart-select-all JSelectAll" data-mdesc="全选按钮" data-mtype="store_cart_all">
+						<div class="mz-checkbox"></div>
+						<span class="cart-select-title">全选</span>
+				   </div>
+				   <!-- <span class="cart-remove-selected" id="removeSelected">删除选中的商品</span> -->
+				   <span class="cart-footer-count">
+						共
+						<span class="cart-footer-num" id="totalCount"></span>
+						件商品
+				   </span>
+				</div>
+				<div class="cart-footer-right col-md-5 col-md-offset-1 col-sm-offset-2 col-xs-8 col-sm-6">
+					<span class="cart-footer-sum">
+						<span class="cart-footer-text">已优惠</span>
+						<span class="cart-footer-num red" id="totalDiscount">0.00</span>
+						<span class="cart-footer-text">元， 合计(不含运费)：</span>
+						<span class="cart-footer-total" id="totalPrice"></span>
+					</span>
+					<div class="mz-btn success" id="cartSubmit">去结算</div>
+				</div>
+			</div>
+		</div><!-- 结算详情 E-->
+	</div>
+    <!-- 主内容区域 E-->
+
+<script type="text/javascript">
+    //全选
+    allSelect();
+    //商品数量加减
+    // cartAddMin();
+     // 运算总价
+     function Computed(){
+         var totalPrice = 0
+         var totalNum = 0
+         $('.cart-merchant-body .checked').each(function(){
+             totalPrice += parseFloat($(this).parents('tr').find('.total').text())
+             totalNum += Number($(this).parents('tr').find('.mz-adder-input').val())
+         })
+         res = '{% cheng 1199 1 %}'
+         $('#totalPrice').text(toDecimal2(totalPrice))
+         $('#totalCount').text(totalNum)
+     }
+
+
+     //制保留2位小数，如：2，会在2后面补上00.即2.00
+    function toDecimal2(x) {
+      var f = parseFloat(x);
+      if (isNaN(f)) {
+        return false;
+      }
+      var f = Math.round(x*100)/100;
+      var s = f.toString();
+      var rs = s.indexOf('.');
+      if (rs < 0) {
+        rs = s.length;
+        s += '.';
+      }
+      while (s.length <= rs + 2) {
+        s += '0';
+      }
+      return s;
+    }
+
+
+    // ajax 购物车商品删除
+    $('.cart-product-remove').click(function(){
+        // 获取要删除的商品的id
+        var gid = $(this).attr('gid')
+        var t = $(this)
+        // 发送ajax请求删除商品
+        $.get('{% url "home_cartdelete" %}',{'gid':gid},function(data){
+            if(data['error'] == 0){
+                // 移除当前页面中的商品
+                t.parents('tr').remove()
+            }
+            alert(data['msg'])
+        },'json')
+    })
+
+
+    // 给加减按钮绑定事件
+    $('.mz-adder button').click(function(){
+         // 商品id
+        var gid = $(this).parent().attr('gid')
+        // 获取当前选择的数量 num
+        var num = Number($(this).parent().find('input').val())
+        // 判断数量加减
+        var res = $(this).attr('f')
+        if(res == '-'){
+            num --
+        }else if(res == '+'){
+            num ++
+        }
+        // 把修改过后的数量,放回去
+        $(this).parent().find('input').val(num)
+
+        // 发送ajax请求,.修改数量
+        $.get('{% url "home_cartedit" %}',{'gid':gid,'num':num},function(data){
+            alert(data['msg'])
+        },'json')
+    })
+</script>
+{% endblock %}

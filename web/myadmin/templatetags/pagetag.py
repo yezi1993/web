@@ -72,4 +72,8 @@ def GetNavList():
                 </li>
             '''.format(name=i.name, u=reverse('home_list', args=(i.id,)))
     return format_html(s)
-
+# 购物车计算
+@register.simple_tag
+def cheng(a,b):
+    res = a * b
+    return '%.2f' % res

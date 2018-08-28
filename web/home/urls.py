@@ -34,5 +34,16 @@ urlpatterns = [
     # 发送手机验证码
     url(r'^sendSMS/$', views.sendSMS,name="home_sendSMS"),
 
+
+    # 加入购物车
+    url(r'^cartadd/$', views.cartadd,name="home_cartadd"),
+    # 购物车列表
+    url(r'^cartlist/$', views.cartlist,name="home_cartlist"),
+    # 购物车修改
+    url(r'^cartedit/$', views.cartedit,name="home_cartedit"),
+    # 删除购物车里的商品
+    url(r'^cartdelete/$', views.cartdelete,name="home_cartdelete"),
+
+
 ]
 
