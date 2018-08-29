@@ -104,7 +104,7 @@ def login(request):
                 # 把用户的数据信息,写入session
                 request.session['VipUser'] = {'uid': ob.id, 'username': ob.username, 'pic': ob.pic}
                 # 成功
-                return HttpResponse('<script>alert("欢迎登录狗蛋网");location.href="' + nextpath + '"</script>')
+                return HttpResponse('<script>alert("欢迎登录商城");location.href="' + nextpath + '"</script>')
         except:
             pass
 
