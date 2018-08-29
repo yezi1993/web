@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+# 前台用户表
 class Users(models.Model):
     # 用户名
     username = models.CharField(max_length=30)
@@ -13,7 +13,7 @@ class Users(models.Model):
     # 年龄
     age = models.IntegerField(default=18)
     # 性别
-    sex = models.CharField(max_length=1,null=True)
+    sex = models.CharField(max_length=1,default='1')
     # 头像
     pic = models.CharField(max_length=100,default='/static/pics/user.gif')
     # 状态 0禁用 1启用
@@ -24,7 +24,7 @@ class Users(models.Model):
     update_time = models.DateTimeField(auto_now=True)
 
 
-
+# 商品分类表
 class Types(models.Model):
     # 分类名称
     name = models.CharField(max_length=20)
@@ -33,7 +33,7 @@ class Types(models.Model):
     # 记录父级跟自己的id
     path = models.CharField(max_length=30)
 
-
+# 商品表
 class Goods(models.Model):
     # 分类id
     tid = models.ForeignKey(to='Types',to_field='id')
@@ -58,5 +58,34 @@ class Goods(models.Model):
     # 商品修改时间
     update_time = models.DateTimeField(auto_now=Types)
 
+# 收货地址表
+class Address(models.Model):
+    # 用户 收货人 收货地址 收货电话  备注 是否默认地址
+    uid = models.ForeignKey(to="Users", to_field="id")
+    aname = models.CharField(max_length=10)
+    ads = models.CharField(max_length=100)
+    aphone = models.CharField(max_length=11)
+    atags = models.CharField(max_length=10,null=True)
+    isstatus = models.BooleanField(default=False)
 
+# 订单表
+class Order(models.Model):
+    uid = models.ForeignKey(to="Users", to_field="id")
+    aid = models.ForeignKey(to="Address", to_field="id")
+    totalprice = models.FloatField()
+    # 0 未支付, 1已支付,2,已发货,3已收货,4,已取消
+    status  = models.IntegerField(default=0)
+    addtime = models.DateTimeField(auto_now_add=True)
 
+# 订单详情表
+class OrderInfo(models.Model):
+    orderid =  models.ForeignKey(to="Order", to_field="id")
+    gid = models.ForeignKey(to="Goods", to_field="id")
+    num  = models.IntegerField()
+    price = models.FloatField()
+
+# 城市表
+class Citys(models.Model):
+    name = models.CharField(max_length=20)
+    level = models.IntegerField()
+    upid = models.IntegerField()

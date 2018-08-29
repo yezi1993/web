@@ -141,6 +141,7 @@ function allSelect(){
       $('.cart-col-select .mz-checkbox').removeClass('checked');
       aee = false;
     }
+     Computed()
   })
 
   //单选
@@ -152,7 +153,10 @@ function allSelect(){
       $(this).removeClass('checked');
       see = false;
     }
+     Computed()
   })
+
+
 }
 
 // 数量增加减少

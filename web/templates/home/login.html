@@ -47,7 +47,7 @@
     <div class="container-fluid"> 
         <div class="banner-box hidden-xs hidden-sm">
             <div class="container">
-                <form method="post" id="mainForm" class="main-form">
+                <form action="?nextpath={{ request.GET.nextpath }}" method="post" id="mainForm" class="main-form">
                     {% csrf_token %}
                     <div class="tab-title">
                         <a class="linkAGray" id="toAccountLogin" href="javascript:void(0);">账号登录</a>

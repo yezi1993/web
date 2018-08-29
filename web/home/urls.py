@@ -36,14 +36,28 @@ urlpatterns = [
 
 
     # 加入购物车
-    url(r'^cartadd/$', views.cartadd,name="home_cartadd"),
+    url(r'^cart/add/$', views.cartadd,name="home_cartadd"),
     # 购物车列表
-    url(r'^cartlist/$', views.cartlist,name="home_cartlist"),
+    url(r'^cart/list/$', views.cartlist,name="home_cartlist"),
     # 购物车修改
-    url(r'^cartedit/$', views.cartedit,name="home_cartedit"),
+    url(r'^cart/edit/$', views.cartedit,name="home_cartedit"),
     # 删除购物车里的商品
-    url(r'^cartdelete/$', views.cartdelete,name="home_cartdelete"),
+    url(r'^cart/delete/$', views.cartdelete,name="home_cartdelete"),
 
+    # 确定订单
+    url(r'^order/confirm/$', views.orderconfirm, name="home_orderconfirm"),
+    # 添加收货地址
+    url(r'^address/insert/$', views.addressinsert, name="home_addressinsert"),
+    # 创建订单
+    url(r'^order/create/$', views.ordercreate, name="home_ordercreate"),
+    # 订单支付
+    url(r'^order/buy/$', views.orderbuy, name="home_orderbuy"),
+    # 我的订单
+    url(r'^my/order/$', views.myorder, name="home_myorder"),
+    # 个人中心
+    url(r'^my/centre/$', views.mycentre, name="home_mycentre"),
+    # 编辑个人信息
+    url(r'^my/useredit/$', views.useredit, name="home_useredit"),
 
 ]
 
