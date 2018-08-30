@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+from django.contrib.auth import login,logout
+from django.contrib.auth import authenticate
+
 # Create your views here.
 # 后台主页
 def index(request):
@@ -10,13 +13,35 @@ def index(request):
 
 # 后台登录
 def myadminlogin(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
+        # 判断验证码
+        print('123')
+        if request.POST['vcode'].upper() != request.session['verifycode'].upper():
+            return HttpResponse('<script>alert("验证码错误！！");history.back(-1);</script>')
 
-        return render(request,'myadmin/login.html')
+        user = authenticate(username=request.POST['username'],password=request.POST['password'])
 
+        if user:
+            login(request,user)
+
+            request.session['AdminUser'] = {'username':user.username}
+
+            return HttpResponse('<script>alert("欢迎登录！！");location.href="/myadmin/"</script>')
+        else:
+            return HttpResponse('<script>alert("用户名或密码错误");history.back(-1);</script>')
     else:
 
-        return HttpResponse('123')
+        return render(request, 'myadmin/login.html')
+
+
+def myadminlogout(request):
+
+    request.session['AdminUser'] = ''
+    logout(request)
+
+    return HttpResponse("<script>alert('退出成功');location.href='/myadmin/login/';</script>")
+
+
 
 # 验证码
 def verifycode(request):
@@ -39,14 +64,14 @@ def verifycode(request):
         fill = (random.randrange(0, 255), 255, random.randrange(0, 255))
         draw.point(xy, fill=fill)
     #定义验证码的备选值
-    # str1 = 'ABCD123EFGHIJK456LMNOPQRS789TUVWXYZ0'
-    str1 = '123456789'
+    str1 = 'ABCD123EFGHIJK456LMNOPQRS789TUVWXYZ0'
+    # str1 = '123456789'
     #随机选取4个值作为验证码
     rand_str = ''
     for i in range(0, 4):
         rand_str += str1[random.randrange(0, len(str1))]
     #构造字体对象
-    font = ImageFont.truetype('Arial.ttf', 23)
+    font = ImageFont.truetype('simhei.ttf', 23)
     #构造字体颜色
     fontcolor = (255, random.randrange(0, 255), random.randrange(0, 255))
     #绘制4个字

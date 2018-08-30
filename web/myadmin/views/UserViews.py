@@ -3,11 +3,13 @@ from django.http import HttpResponse,JsonResponse
 from django.contrib.auth.hashers import make_password, check_password
 from myadmin.models import Users
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import permission_required
 
 import os
 from web.settings import BASE_DIR
 
 # 用户列表页
+@permission_required('myadmin.show_users',raise_exception=True)
 def index(request):
 
     data = Users.objects.filter()
@@ -50,6 +52,7 @@ def index(request):
     return render(request,'myadmin/users/index.html',{'data':data})
 
 # 用户添加
+@permission_required('myadmin.insert_users',raise_exception=True)
 def add(request):
     if request.method == 'GET':
 
@@ -77,6 +80,7 @@ def add(request):
             return HttpResponse('<script>alert("会员添加失败");history.back(-1);</script>')
 
 # 用户删除
+@permission_required('myadmin.remove_users',raise_exception=True)
 def delete(request):
     # 接受uid
     if request.is_ajax():
@@ -107,6 +111,7 @@ def delete(request):
 
 
 # 用户编辑
+@permission_required('myadmin.update_users',raise_exception=True)
 def edit(request,uid):
     ob = Users.objects.get(id=uid)
     cont = {'data':ob}
@@ -114,6 +119,7 @@ def edit(request,uid):
 
 
 # 用户编辑处理
+@permission_required('myadmin.update_users',raise_exception=True)
 def update(request):
     try:
         ob = Users.objects.get(id=request.POST['uid'])

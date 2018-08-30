@@ -1,0 +1,105 @@
+{% extends 'myadmin/index.html' %}
+{% block title %}
+<title>管理组修改</title>
+{% endblock %}
+
+{% block con %}
+<div class="container-fluid am-cf">
+    <div class="row">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+            <div class="page-header-heading">
+                <span class="am-icon-user page-header-heading-icon"></span> 
+                管理组修改 
+            </div>
+        </div>
+        <div class="am-u-lg-3 tpl-index-settings-button">
+            <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>
+        </div>
+    </div>
+</div>
+
+<div class="row-content am-cf"> 
+   <div class="row"> 
+    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12"> 
+     <div class="widget am-cf"> 
+      <div class="widget-body am-fr"> 
+       
+       <form method="post" action="{% url 'myadmin_auth_groupupdate' %}" enctype="multipart/form-data"  class="am-form tpl-form-line-form">
+            {% csrf_token %}
+           <input type="hidden" name="gid" value="{{data.id}}">
+            <div class="am-form-group"> 
+                <label for="user-name" class="am-u-sm-3 am-form-label">
+                    管理组名称
+                </label> 
+                <div class="am-u-sm-9"> 
+                    <input name="name" value="{{data.name}}" type="text" class="tpl-form-input"
+                     placeholder="请输入管理组名" /> 
+                </div> 
+            </div>
+
+            <div class="am-form-group"> 
+                <label for="user-name" class="am-u-sm-3 am-form-label">
+                    组权限
+                </label> 
+                <div class="am-u-sm-9"> 
+                   <div class="row">
+                       <div class="am-u-sm-6">
+                        <center>
+                            <h3>可选择的权限</h3>
+                           <select id="selectA" multiple="multiple">
+                            {% for v in ps %}
+                               <option value="{{ v.id }}">{{ v }}</option>
+                            {% endfor %}
+                           
+                           </select><br>
+                           <button id="selectall" type="button" class="am-btn am-btn-success am-btn-xs">&gt;&gt;</button>
+                        </center>
+                       </div>
+                       <div class="am-u-sm-6">
+                            <center>
+                                <h3>已选择的权限</h3>
+                               <select name="gs" id="selectB" multiple="multiple">
+                                   {% for v in data.permissions.all %}
+                                       <option value="{{ v.id }}">{{ v }}</option>
+                                    {% endfor %}
+                               </select><br>
+                               <button id="removeall" type="button" class="am-btn am-btn-danger am-btn-xs">&lt;&lt;</button>
+                            </center>
+                       </div>
+                   </div>
+                </div> 
+            </div>
+        
+            <div class="am-form-group">
+                <div class="am-u-sm-9 am-u-sm-push-3">
+                    <button id="sub" class="am-btn am-btn-primary tpl-btn-bg-color-success ">修改</button>
+                </div>
+            </div>
+
+       
+       </form> 
+
+      
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+</div>
+ <script type="text/javascript">
+    $('#selectA').on('dblclick','option',function(){
+        $('#selectB').append($(this))
+    })
+    $('#selectB').on('dblclick','option',function(){
+        $('#selectA').append($(this))
+    })
+    $('#selectall').click(function(){
+        $('#selectB').append($('#selectA').find('option'))
+    })
+    $('#removeall').click(function(){
+        $('#selectA').append($('#selectB').find('option'))
+    })
+    $('#sub').click(function(){
+        $('#selectB option').prop('selected',true)
+    })
+</script>
+{% endblock %}

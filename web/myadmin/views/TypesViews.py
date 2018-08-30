@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 from myadmin.models import Types
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import permission_required
 
 # 获取格式化分类数据
 def GetTypes():
@@ -20,6 +21,7 @@ def GetTypes():
     return obs
 
 # 分类列表页
+@permission_required('myadmin.show_types',raise_exception=True)
 def index(request):
 
     obs = GetTypes()
@@ -40,6 +42,7 @@ def index(request):
     return render(request,'myadmin/types/index.html',cont)
 
 # 分类添加
+@permission_required('myadmin.insert_types',raise_exception=True)
 def add(request):
 
     if request.method == 'GET':
@@ -64,6 +67,7 @@ def add(request):
 
 
 # 分类删除
+@permission_required('myadmin.remove_types',raise_exception=True)
 def delete(request):
     if request.is_ajax():
         ob = Types.objects.get(id=request.GET['uid'])
@@ -79,6 +83,7 @@ def delete(request):
 
 
 # 分类编辑
+@permission_required('myadmin.update_types',raise_exception=True)
 def edit(request):
     if request.is_ajax():
 

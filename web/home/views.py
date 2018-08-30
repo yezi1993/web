@@ -81,6 +81,7 @@ def register(request):
         except:
             return HttpResponse('<script>alert("注册失败，请联系管理员");history.back(-1);</script>')
 
+
 # 登录
 def login(request):
     # 获取地址
@@ -157,6 +158,7 @@ def cartadd(request):
 
     return  JsonResponse({'error':0,'msg':'成功加入购物车！！！'})
 
+
 # 购物车列表
 def cartlist(request):
     # 获取所有的购物车的商品
@@ -168,6 +170,7 @@ def cartlist(request):
 
 
     return render(request,'home/cartlist.html',{'data':data})
+
 
 # 购物车修改
 def cartedit(request):
@@ -185,6 +188,7 @@ def cartedit(request):
     request.session['cart'] = data
 
     return JsonResponse({'error':0,'msg':'购物车商品更新成功'})
+
 
 # 删除购物车里的商品
 def cartdelete(request):
@@ -312,15 +316,19 @@ def myorder(request):
     return render(request, 'home/myorder.html', context)
 
 
+# 个人中心
 def mycentre(request):
 
     ob = Users.objects.get(id=request.session['VipUser']['uid'])
 
     return render(request,'home/mycentre.html',{'data':ob})
 
+
+# 编辑个人信息
 def useredit(request):
 
     ob = Users.objects.get(id=request.session['VipUser']['uid'])
+
 
     if request.method == 'GET':
 
@@ -352,6 +360,7 @@ def useredit(request):
             return HttpResponse('<script>alert("会员编辑失败");history.back(-1);</script>')
 
 
+# 图片上传
 def uploads(file):
     import random,time
 

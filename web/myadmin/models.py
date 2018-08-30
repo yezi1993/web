@@ -23,6 +23,13 @@ class Users(models.Model):
     # 修改时间
     update_time = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        permissions = (
+            ("show_users", "会员查看权限"),
+            ("insert_users", "会员添加权限"),
+            ("remove_users", "会员删除权限"),
+            ("update_users", "会员修改权限"),
+        )
 
 # 商品分类表
 class Types(models.Model):
@@ -32,6 +39,14 @@ class Types(models.Model):
     pid = models.IntegerField()
     # 记录父级跟自己的id
     path = models.CharField(max_length=30)
+
+    class Meta:
+        permissions = (
+            ("show_types", "商品分类查看权限"),
+            ("insert_types", "商品分类添加权限"),
+            ("remove_types", "商品分类删除权限"),
+            ("update_types", "商品分类修改权限"),
+        )
 
 # 商品表
 class Goods(models.Model):
@@ -58,6 +73,14 @@ class Goods(models.Model):
     # 商品修改时间
     update_time = models.DateTimeField(auto_now=Types)
 
+    class Meta:
+        permissions = (
+            ("show_goods", "商品查看权限"),
+            ("insert_goods", "商品添加权限"),
+            ("remove_goods", "商品删除权限"),
+            ("update_goods", "商品修改权限"),
+        )
+
 # 收货地址表
 class Address(models.Model):
     # 用户 收货人 收货地址 收货电话  备注 是否默认地址
@@ -77,12 +100,21 @@ class Order(models.Model):
     status  = models.IntegerField(default=0)
     addtime = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        permissions = (
+            ("show_order", "订单查看权限"),
+            ("insert_order", "订单添加权限"),
+            ("remove_order", "订单删除权限"),
+            ("update_order", "订单修改权限"),
+        )
+
 # 订单详情表
 class OrderInfo(models.Model):
     orderid =  models.ForeignKey(to="Order", to_field="id")
     gid = models.ForeignKey(to="Goods", to_field="id")
     num  = models.IntegerField()
     price = models.FloatField()
+
 
 # 城市表
 class Citys(models.Model):

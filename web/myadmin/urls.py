@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from . views import IndexViews,UserViews,TypesViews,GoodsViews
+from . views import IndexViews,UserViews,TypesViews,GoodsViews,AuthViews
 
 
 urlpatterns = [
@@ -23,8 +23,28 @@ urlpatterns = [
     url(r'^$',IndexViews.index,name='myadmin_index'),
     # 后台登录
     url(r'^login/$',IndexViews.myadminlogin,name='myadmin_login'),
+    # 后台退出
+    url(r'^logout/$',IndexViews.myadminlogout,name='myadmin_logout'),
     #验证码
     url(r'^verifycode/$',IndexViews.verifycode,name='myadmin_verifycode'),
+
+    # 后台管理员页
+    url(r'^auth/user/index/$',AuthViews.userindex,name='myadmin_auth_userindex'),
+    # 管理员添加
+    url(r'^auth/user/add/$',AuthViews.useradd,name='myadmin_auth_useradd'),
+    # 管理员修改页
+    url(r'^auth/user/edit/$',AuthViews.useredit,name='myadmin_auth_useredit'),
+    # 管理员修改执行
+    url(r'^auth/user/update/$',AuthViews.userupdate,name='myadmin_auth_userupdate'),
+
+    # 管理组列表页
+    url(r'^auth/group/index/$', AuthViews.groupindex, name="myadmin_auth_groupindex"),
+    # 管理组添加
+    url(r'^auth/group/add/$', AuthViews.groupadd, name="myadmin_auth_groupadd"),
+    # 管理组修改
+    url(r'^auth/group/edit/$', AuthViews.groupedit, name="myadmin_auth_groupedit"),
+    # 管理组修改执行
+    url(r'^auth/group/update/$', AuthViews.groupupdate, name="myadmin_auth_groupupdate"),
 
     # 用户列表页
     url(r'^user/index/$', UserViews.index, name='myadmin_user_index'),

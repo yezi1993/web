@@ -11,8 +11,10 @@ from myadmin.models import Goods, Types
 
 import os
 from web.settings import BASE_DIR
+from django.contrib.auth.decorators import permission_required
 
 # 商品列表
+@permission_required('myadmin.show_goods',raise_exception=True)
 def index(request):
     # 获取所有的商品
     obs = Goods.objects.all()
@@ -49,6 +51,7 @@ def index(request):
 
 
 # 商品添加
+@permission_required('myadmin.insert_goods',raise_exception=True)
 def add(request):
     if request.method == 'GET':
         # 调用封装好的函数,获取所有的分类
@@ -79,6 +82,7 @@ def add(request):
             return HttpResponse('<script>alert("商品添加失败");history.back(-1);</script>')
 
 # 商品编辑页
+@permission_required('myadmin.update_goods',raise_exception=True)
 def edit(request,uid):
     if request.method == 'GET':
         obs = Goods.objects.get(id=uid)
@@ -88,6 +92,7 @@ def edit(request,uid):
         return render(request, 'myadmin/goods/edit.html',context)
 
 # 执行商品编辑
+@permission_required('myadmin.update_goods',raise_exception=True)
 def update(request):
 
     if request.method == 'POST':
@@ -116,6 +121,7 @@ def update(request):
         return HttpResponse('请求错误')
 
 # 修改商品状态
+@permission_required('myadmin.remove_goods',raise_exception=True)
 def delete(request):
 
         if request.is_ajax():
