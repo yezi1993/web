@@ -24,7 +24,7 @@ def myadminlogin(request):
         if user:
             login(request,user)
 
-            request.session['AdminUser'] = {'username':user.username}
+            request.session['AdminUser'] = {'username':user.username,'id':user.id}
 
             return HttpResponse('<script>alert("欢迎登录！！");location.href="/myadmin/"</script>')
         else:

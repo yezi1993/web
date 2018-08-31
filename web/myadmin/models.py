@@ -103,8 +103,6 @@ class Order(models.Model):
     class Meta:
         permissions = (
             ("show_order", "订单查看权限"),
-            ("insert_order", "订单添加权限"),
-            ("remove_order", "订单删除权限"),
             ("update_order", "订单修改权限"),
         )
 
@@ -121,3 +119,4 @@ class Citys(models.Model):
     name = models.CharField(max_length=20)
     level = models.IntegerField()
     upid = models.IntegerField()
+

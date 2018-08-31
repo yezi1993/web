@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from . views import IndexViews,UserViews,TypesViews,GoodsViews,AuthViews
+from . views import IndexViews,UserViews,TypesViews,GoodsViews,AuthViews,OrderViews
 
 
 urlpatterns = [
@@ -36,6 +36,8 @@ urlpatterns = [
     url(r'^auth/user/edit/$',AuthViews.useredit,name='myadmin_auth_useredit'),
     # 管理员修改执行
     url(r'^auth/user/update/$',AuthViews.userupdate,name='myadmin_auth_userupdate'),
+    # 管理员删除
+    url(r'^auth/user/del/$',AuthViews.userdel,name='myadmin_auth_userdel'),
 
     # 管理组列表页
     url(r'^auth/group/index/$', AuthViews.groupindex, name="myadmin_auth_groupindex"),
@@ -45,6 +47,8 @@ urlpatterns = [
     url(r'^auth/group/edit/$', AuthViews.groupedit, name="myadmin_auth_groupedit"),
     # 管理组修改执行
     url(r'^auth/group/update/$', AuthViews.groupupdate, name="myadmin_auth_groupupdate"),
+    # 管理组删除
+    url(r'^auth/group/del/$', AuthViews.groupdel, name="myadmin_auth_groupdel"),
 
     # 用户列表页
     url(r'^user/index/$', UserViews.index, name='myadmin_user_index'),
@@ -78,4 +82,14 @@ urlpatterns = [
     url(r'^goods/update/$', GoodsViews.update, name='myadmin_goods_update'),
     # 商品删除
     url(r'^goods/delete/$', GoodsViews.delete, name='myadmin_goods_delete'),
+
+
+    # 订单列表
+    url(r'^orders/index/', OrderViews.index, name='myadmin_orders_index'),
+    # 订单详情
+    url(r'^orders/ordersinfo/', OrderViews.ordersinfo, name='myadmin_orders_ordersinfo'),
+    # 修改订单状态
+    url(r'^orders/orderstatus/', OrderViews.orderstatus, name='myadmin_orders_orderstatus'),
+
+
 ]

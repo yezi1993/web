@@ -33,9 +33,7 @@
                     <div class="am-form-group">
                         <div class="am-btn-toolbar">
                             <div class="am-btn-group am-btn-group-xs">
-                                <a href="{% url 'myadmin_user_add' %}" class="am-btn am-btn-default am-btn-success">
-                                    <span class="am-icon-plus"></span> 新增
-                                </a>
+
                             </div>
                         </div>
                     </div>
@@ -44,12 +42,9 @@
                     <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
                         <div class="am-form-group tpl-table-list-select">
                             <select name="types" data-am-selected="{btnSize: 'sm'}" style="display: none;">
-                                <option value="username">用户名</option>
-                                <option value="phone">手机号</option>
-                                <option value="email">邮箱</option>
-                                <option value="age">年龄</option>
-                                <option value="sex">性别</option>
-                                <option value="status">状态</option>
+                                <option value="oid">订单号</option>
+                                <option value="username">买家</option>
+                                <option value="static">状态</option>
                             </select>
                         </div>
                     </div>
@@ -66,49 +61,38 @@
                     <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black ">
                         <thead>
                             <tr>
-                                <th>头像缩略图</th>
-                                <th>用户名</th>
-                                <th>手机号</th>
-                                <th>邮箱</th>
-                                <th>年龄</th>
-                                <th>性别</th>
-                                <th>状态</th>
-                                <th>注册时间</th>
+                                <th>订单号</th>
+                                <th>买家</th>
+                                <th>订单总价</th>
+                                <th>订单状态</th>
+                                <th>下单时间</th>
                                 <th>操作</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for v in data %}
                             <tr>
-                                <td>
-                                    <img src="{{ v.pic }}" style="width: 50px" class="tpl-table-line-img" alt="">
-                                </td>
-                                <td class="am-text-middle">{{ v.username }}</td>
-                                <td class="am-text-middle">{{ v.phone }}</td>
-                                <td class="am-text-middle">{{ v.email }}</td>
-                                <td class="am-text-middle">{{ v.age }}</td>
+                                <td class="am-text-middle">{{ v.id }}</td>
+                                <td class="am-text-middle">{{ v.uid.username }}</td>
+                                <td class="am-text-middle">{{ v.totalprice }}</td>
                                 <td class="am-text-middle">
-                                    {% if v.sex == '0' %}
-                                        女
-                                    {% else %}
-                                        男
-                                    {% endif %}
-                                </td>
-                                <td class="am-text-middle">
-                                    <select name="" class="status" uid="{{ v.id }}" style="color: black;">
-                                        <option  {% if v.status == 1 %} selected {% endif %} value="1">正常</option>
-                                        <option {% if v.status == 0 %} selected {% endif %} value="0">禁用</option>
+                                    <select name="status" class="status" oid="{{ v.id }}" style="color: black">
+                                        <option value="0" {% if v.status == 0 %} selected {% endif %}>未支付</option>
+                                        <option value="1" {% if v.status == 1 %} selected {% endif %}>已支付</option>
+                                        <option value="2" {% if v.status == 2 %} selected {% endif %}>已发货</option>
+                                        <option value="3" {% if v.status == 3 %} selected {% endif %}>已收货</option>
+                                        <option value="4" {% if v.status == 4 %} selected {% endif %}>已取消</option>
                                     </select>
                                 </td>
-                                <td class="am-text-middle">{{ v.create_time|date:'Y-m-d H:i:s' }}</td>
+                                <td class="am-text-middle">{{ v.addtime|date:'Y-m-d H:i:s' }}</td>
                                 <td class="am-text-middle">
                                     <div class="tpl-table-black-operation">
-                                        <a href="{% url 'myadmin_user_edit' v.id %}">
-                                            <i class="am-icon-pencil"></i> 编辑
-                                        </a>
-                                        <a uid="{{ v.id }}" href="javascript:;" class="tpl-table-black-operation-del">
-                                            <i class="am-icon-trash"></i> 删除
-                                        </a>
+                                         <button type="button" oid="{{v.id}}"  class="am-btn am-btn-primary js-modal-open">查看详情</button>
+                                            <div class="am-modal am-modal-no-btn your-modal" tabindex="-1">
+                                              <div class="am-modal-dialog data1" style="width:600px;">
+
+                                              </div>
+                                            </div>
                                     </div>
                                 </td>
                             </tr>
@@ -130,38 +114,49 @@
             </div>
         </div>
     </div>
-   </div> 
+   </div>
 </div>
 <script type="text/javascript">
-    // 给删除按钮绑定单击事件
-    $('.tpl-table-black-operation-del').click(function(){
-        // 获取当前的id
-        var uid = $(this).attr('uid')
+  $(function() {
+    var $modal = $('.your-modal');
 
-        var td = $(this)
+    $modal.siblings('.am-btn').on('click', function(e) {
+      var $target = $(e.target);
+      var oid = $(this).attr('oid');
+      var str = '';
+      if (($target).hasClass('js-modal-open')) {
 
-        // 发送ajax请求
-        $.get('{% url "myadmin_user_del" %}',{'uid':uid},function(data){
+          $.get("{% url 'myadmin_orders_ordersinfo' %}",{'oid':oid},function(data){
 
-            if(data['error'] == 0){
-                // 如果删除成功,则移除当前的整个tr数据
-                td.parents('tr').remove()
-            }
-            // 弹出提示信息
-            alert(data['msg'])
-        })
-    })
+                str += '<h1 style="color:black;">购买详情</h1><table style="color: black;border: 1px;" width="600px;" align="center"><tr><td>商品id</td><td>商品名称</td><td>商品图片</td><td>购买数量</td><td>单价</td><td>小计</td></tr>';
+
+                for ( i in data.orderlist){
+                    //小计的计算
+                    num = data.orderlist[i]["num"];
+                    price = data.orderlist[i]["goodsprice"];
+                    sum = price*num
+                    //拼接模态框内容
+                    str+='<tr><td>'+data.orderlist[i]["id"]+'</td><td>'+data.orderlist[i]["goodsname"]+'</td><td><img src="'+data.orderlist[i]["goodspic"]+'" style="width: 50px" class="tpl-table-line-img" alt=""></td><td>'+data.orderlist[i]["num"]+'</td><td>'+data.orderlist[i]["goodsprice"]+'</td><td>'+sum+'</td></tr>';
+                }
+
+                str += '</table>';
+              $('.data1').html(str);
+
+          },'json')
+        $modal.modal();
+      }
+    });
+
 
     $('.status').change(function(){
-        //获取要修改状态用户的id
-        var uid = $(this).attr('uid')
-        //获取修改状态的值
-        var v = $(this).val();
+        var oid = $(this).attr('oid')
+        var status = $(this).val()
+        console.log(status)
 
-        $.get('{% url "myadmin_user_status" %}',{'uid':uid,'status':v},function(data){
+        $.get('{% url "myadmin_orders_orderstatus" %}',{'oid':oid,'status':status},function(data){
             alert(data['msg']);
         },'json')
     })
-
+  });
 </script>
 {% endblock %}

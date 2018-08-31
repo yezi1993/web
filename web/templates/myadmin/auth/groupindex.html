@@ -36,35 +36,11 @@
                                 <a href="{% url 'myadmin_auth_groupadd' %}" class="am-btn am-btn-default am-btn-success">
                                     <span class="am-icon-plus"></span> 新增
                                 </a>
-                                <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
-                                <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
-                                <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-            <form>
-                <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-                    <div class="am-form-group tpl-table-list-select">
-                        <select name="types" data-am-selected="{btnSize: 'sm'}" style="display: none;">
-                            <option {% if request.GET.types == 'username' %} selected {% endif %} value="username">用户名</option>
-                            <option {% if request.GET.types == 'phone' %} selected {% endif %} value="phone">手机号</option>
-                            <option {% if request.GET.types == 'age' %} selected {% endif %} value="age">年龄</option>
-                            <option {% if request.GET.types == 'sex' %} selected {% endif %} value="sex">性别</option>
-                            <option {% if request.GET.types == 'status' %} selected {% endif %} value="status">状态</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-                    <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                        <input value="{{ request.GET.keywords }}" name="keywords" type="text" class="am-form-field ">
-                        <span class="am-input-group-btn">
-                        <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"></button>
-                        </span>
-                    </div>
-                </div>
-            </form>
 
 
                 <div class="am-u-sm-12">
@@ -86,7 +62,7 @@
                                         <a href="{% url 'myadmin_auth_groupedit' %}?gid={{ v.id }}">
                                             <i class="am-icon-pencil"></i> 编辑
                                         </a>
-                                        <a uid="{{ v.id }}" href="javascript:;" class="tpl-table-black-operation-del">
+                                        <a href="{% url 'myadmin_auth_groupdel' %}?gid={{ v.id }}" class="tpl-table-black-operation-del">
                                             <i class="am-icon-trash"></i> 删除
                                         </a>
                                     </div>

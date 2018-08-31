@@ -11,6 +11,7 @@ def useradd(request):
         # 获取所有表单提交的数据
         data = request.POST.dict()
         data.pop('csrfmiddlewaretoken')
+        data.pop('gs')
 
         # 判断是不是超级管理员
         if data['is_superuser'] == '1':
@@ -29,7 +30,9 @@ def useradd(request):
         return HttpResponse("<script>location.href='/myadmin/auth/user/index'</script>")
     else:
 
-        return render(request, 'myadmin/auth/add.html')
+        glist = Group.objects.all()
+
+        return render(request, 'myadmin/auth/add.html',{'glist':glist})
 
 
 # 后台管理员列表
@@ -39,6 +42,7 @@ def userindex(request):
     data = User.objects.all()
 
     return render(request,'myadmin/auth/index.html',{'data':data})
+
 
 # 后台管理员修改页
 @permission_required('auth.add_user',raise_exception=True)
@@ -55,6 +59,7 @@ def useredit(request):
     context = {'data':ob,'glist':gs}
     # 加载模板
     return render(request,'myadmin/auth/edit.html',context)
+
 
 # 执行后台管理员修改
 @permission_required('auth.add_user',raise_exception=True)
@@ -82,6 +87,21 @@ def userupdate(request):
     if gs:
         # 把新加的组入库
         ob.groups.set(Group.objects.filter(id__in=gs))
+
+    return HttpResponse('<script>location.href="/myadmin/auth/user/index/"</script>')
+
+
+# 管理员删除
+@permission_required('auth.add_user',raise_exception=True)
+def userdel(request):
+    uid = request.GET['uid']
+    ob = User.objects.get(id=uid)
+    # 不能删除自己的账户
+    if request.session['AdminUser']['id'] == ob.id:
+        return HttpResponse('<script>alert("你不能删除自己");history.back(-1);</script>')
+
+    ob.groups.clear()
+    ob.delete()
 
     return HttpResponse('<script>location.href="/myadmin/auth/user/index/"</script>')
 
@@ -156,3 +176,16 @@ def groupupdate(request):
 
     return HttpResponse('<script>location.href="/myadmin/auth/group/index/"</script>')
 
+
+# 管理组删除
+@permission_required('auth.add_user',raise_exception=True)
+def groupdel(request):
+    gid = request.GET['gid']
+
+    ob = Group.objects.get(id=gid)
+
+    ob.permissions.clear()
+
+    ob.delete()
+
+    return HttpResponse('<script>location.href="/myadmin/auth/group/index/"</script>')
