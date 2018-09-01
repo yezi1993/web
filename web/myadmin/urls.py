@@ -92,4 +92,5 @@ urlpatterns = [
     url(r'^orders/orderstatus/', OrderViews.orderstatus, name='myadmin_orders_orderstatus'),
 
 
+
 ]

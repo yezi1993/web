@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from . import views
 
+S = r'my/order/daifukuan/'
 
 urlpatterns = [
 
@@ -46,18 +47,39 @@ urlpatterns = [
 
     # 确定订单
     url(r'^order/confirm/$', views.orderconfirm, name="home_orderconfirm"),
-    # 添加收货地址
-    url(r'^address/insert/$', views.addressinsert, name="home_addressinsert"),
     # 创建订单
     url(r'^order/create/$', views.ordercreate, name="home_ordercreate"),
     # 订单支付
     url(r'^order/buy/$', views.orderbuy, name="home_orderbuy"),
+
+
     # 我的订单
     url(r'^my/order/$', views.myorder, name="home_myorder"),
+    # 待发货
+    url(r'^my/order/daifahuo/$', views.daifahuo, name="home_myorder_daifahuo"),
+    # 待付款
+    url(r'^%s$' % S, views.daifukuan, name="home_myorder_daifukuan"),
+    # 已发货
+    url(r'^my/order/yifahuo/$', views.yifahuo, name="home_myorder_yifahuo"),
+
+
     # 个人中心
     url(r'^my/centre/$', views.mycentre, name="home_mycentre"),
     # 编辑个人信息
     url(r'^my/useredit/$', views.useredit, name="home_useredit"),
+    # 收货地址
+    url(r'^address/list/$', views.addresslist, name="home_addresslist"),
+    # 添加收货地址
+    url(r'^address/insert/$', views.addressinsert, name="home_addressinsert"),
+    # 编辑收货地址
+    url(r'^address/edit/$', views.addressedit, name="home_addressedit"),
+    # 执行编辑收货地址
+    url(r'^address/update/$', views.addressupdate, name="home_addressupdate"),
+    # 删除收货地址
+    url(r'^address/del/$', views.addressdel, name="home_addressdel"),
+    # 设置默认地址
+    url(r'^address/status/$', views.addressstatus, name="home_addressstatus"),
+
 
 ]
 

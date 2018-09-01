@@ -39,7 +39,7 @@
 
                       {% if not v.isstatus %}
                       <p>
-                        <a href="#" class="btn btn-danger" role="button">设为默认地址</a>
+                        <button aid="{{v.id}}" class="btn btn-danger" role="button">设为默认地址</button>
                       </p>
                       {% endif %}
 
@@ -297,7 +297,16 @@
             alert(data['msg'])
         },'json')
     })
+    // 修改默认地址
+    $('.btn-danger').click(function(){
 
+        var aid = $(this).attr('aid');
+
+        $.get("{% url 'home_addressstatus' %}",{'aid':aid},function(data){
+            alert(data['mgs']);
+            location.reload();
+        })
+    })
 
 </script>
 

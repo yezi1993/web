@@ -83,12 +83,17 @@ class Goods(models.Model):
 
 # 收货地址表
 class Address(models.Model):
-    # 用户 收货人 收货地址 收货电话  备注 是否默认地址
+    # 用户
     uid = models.ForeignKey(to="Users", to_field="id")
+    # 收货人
     aname = models.CharField(max_length=10)
+    # 收货地址
     ads = models.CharField(max_length=100)
+    # 收货电话
     aphone = models.CharField(max_length=11)
+    # 备注
     atags = models.CharField(max_length=10,null=True)
+    # 是否默认地址
     isstatus = models.BooleanField(default=False)
 
 # 订单表

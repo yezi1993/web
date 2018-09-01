@@ -138,38 +138,36 @@ def sendSMS(request):
 
     return HttpResponse(res)
 
-
+# 购物车添加
 def cartadd(request):
     if request.method == 'GET':
         gid = request.GET.get('gid')
         num = int(request.GET.get('num'))
         # 获取session中购物车的数据
-        data = request.session.get('cart',{})
+        data = request.session.get('cart', {})
 
         # 判断要加入购物车的商品是否存在
         if data.get(gid):
             # 存在修改商品数量
             data[gid]['num'] += num
         else:
-            data[gid] = {'gid':gid,'num':num}
+            data[gid] = {'gid': gid, 'num': num}
 
         # 将配置好的购物车数据，存到session
         request.session['cart'] = data
 
-    return  JsonResponse({'error':0,'msg':'成功加入购物车！！！'})
+    return JsonResponse({'error': 0, 'msg': '成功加入购物车！！！'})
 
 
 # 购物车列表
 def cartlist(request):
     # 获取所有的购物车的商品
     data = request.session['cart']
-    
-    for k,v in data.items():
 
+    for k, v in data.items():
         data[k]['goods'] = Goods.objects.get(id=k)
 
-
-    return render(request,'home/cartlist.html',{'data':data})
+    return render(request, 'home/cartlist.html', {'data': data})
 
 
 # 购物车修改
@@ -187,7 +185,7 @@ def cartedit(request):
     # 把修改好的购物车数据,再放回到session
     request.session['cart'] = data
 
-    return JsonResponse({'error':0,'msg':'购物车商品更新成功'})
+    return JsonResponse({'error': 0, 'msg': '购物车商品更新成功'})
 
 
 # 删除购物车里的商品
@@ -200,8 +198,7 @@ def cartdelete(request):
 
     request.session['cart'] = data
 
-    return JsonResponse({'error':'0','msg':'商品删除成功'})
-
+    return JsonResponse({'error': '0', 'msg': '商品删除成功'})
 
 # 订单确认
 def orderconfirm(request):
@@ -223,34 +220,6 @@ def orderconfirm(request):
 
     # 加载模板
     return render(request, 'home/confirm.html', context)
-
-
-# 收货地址的添加
-def addressinsert(request):
-    # 接受数据.
-    data = request.POST.dict()
-    ids = request.POST.get('ids')
-    data.pop('csrfmiddlewaretoken')
-    data.pop('ids')
-
-    # 获取用户对象
-    data['uid'] = Users.objects.get(id=request.session['VipUser']['uid'])
-    # 执行数据的添加
-    ob = Address.objects.create(**data)
-
-    # 判断如果当前地址设为默认.那么其它地址都要取消默认
-    if ob.isstatus:
-        obs = Address.objects.filter(uid=data['uid']).exclude(id=ob.id)
-        for x in obs:
-            x.isstatus = False
-            x.save()
-
-    print(ids, type(ids))
-
-    res = '''
-        <script>location.href='/order/confirm/?ids={ids}';</script>
-        '''.format(ids=ids)
-    return HttpResponse(res)
 
 
 # 创建订单
@@ -309,19 +278,52 @@ def myorder(request):
     # 获取用户
     uid = request.session['VipUser']['uid']
     ob = Users.objects.get(id=uid)
+    data = Order.objects.filter(uid=ob).order_by('-addtime')
 
     # 分配数据
-    context = {'userob': ob}
+    context = {'data': data}
     # 加载页面
     return render(request, 'home/myorder.html', context)
+
+
+# 待发货
+def daifahuo(request):
+    # 获取用户
+    uid = request.session['VipUser']['uid']
+    ob = Users.objects.get(id=uid)
+    data = Order.objects.filter(uid=ob,status=1).order_by('-addtime')
+
+    return render(request,'home/orders/daifahuo.html',{'data': data})
+
+
+# 待付款
+def daifukuan(request):
+
+    uid = request.session['VipUser']['uid']
+    ob = Users.objects.get(id=uid)
+    data = Order.objects.filter(uid=ob,status=0).order_by('-addtime')
+
+    return render(request,'home/orders/daifukuan.html',{'data': data})
+
+
+# 已发货
+def yifahuo(request):
+    # 获取用户
+    uid = request.session['VipUser']['uid']
+    ob = Users.objects.get(id=uid)
+    data = Order.objects.filter(uid=ob,status=2).order_by('-addtime')
+
+    return render(request,'home/orders/yifahuo.html',{'data': data})
 
 
 # 个人中心
 def mycentre(request):
 
     ob = Users.objects.get(id=request.session['VipUser']['uid'])
+    orderN = Order.objects.filter(uid=ob,status=0).count()
+    orderY = Order.objects.filter(uid=ob,status=1).count()
 
-    return render(request,'home/mycentre.html',{'data':ob})
+    return render(request,'home/mycentre.html',{'data':ob,'orderN':orderN,'orderY':orderY})
 
 
 # 编辑个人信息
@@ -358,6 +360,112 @@ def useredit(request):
             return HttpResponse('<script>alert("会员编辑成功");location.href="/my/centre/"</script>')
         except:
             return HttpResponse('<script>alert("会员编辑失败");history.back(-1);</script>')
+
+
+# 收货地址的添加
+def addressinsert(request):
+    # 接受数据.
+    data = request.POST.dict()
+    ids = request.POST.get('ids')
+    data.pop('csrfmiddlewaretoken')
+    data.pop('ids')
+
+    # 获取用户对象
+    data['uid'] = Users.objects.get(id=request.session['VipUser']['uid'])
+    # 执行数据的添加
+    ob = Address.objects.create(**data)
+
+    # 判断如果当前地址设为默认.那么其它地址都要取消默认
+    if ob.isstatus:
+        obs = Address.objects.filter(uid=data['uid']).exclude(id=ob.id)
+        for x in obs:
+            x.isstatus = False
+            x.save()
+
+    res = '''
+        <script>location.href='/order/confirm/?ids={ids}';</script>
+        '''.format(ids=ids)
+    return HttpResponse(res)
+
+# 收货地址展示
+def addresslist(request):
+
+    ob = Users.objects.get(id=request.session['VipUser']['uid'])
+
+    data = Address.objects.filter(uid=ob)
+
+    return render(request,'home/address/list.html',{'data':data})
+
+
+# 收货地址编辑
+def addressedit(request):
+        aid = request.GET['aid']
+        data = Address.objects.get(id=aid)
+        return render(request,'home/address/edit.html',{'data':data})
+
+
+def addressupdate(request):
+
+    if request.method == 'POST':
+        aid = request.POST['aid']
+        ob = Address.objects.get(id=aid)
+        try:
+            ob.aname = request.POST['aname']
+            ob.ads = request.POST['ads']
+            ob.aphone = request.POST['aphone']
+            ob.atags = request.POST['atags']
+            if request.POST['isstatus'] == '0':
+                ob.isstatus = True
+                uobj = Users.objects.get(id=request.session['VipUser']['uid'])
+                obs = Address.objects.filter(uid=uobj).exclude(id=ob.id)
+                for x in obs:
+                    x.isstatus = False
+                    x.save()
+            else:
+                ob.isstatus = False
+
+            ob.save()
+            return HttpResponse('<script>alert("修改地址成功");location.href="/address/list/"</script>')
+        except:
+
+            return HttpResponse('<script>alert("修改地址失败");history.back(-1)</script>')
+
+
+# 删除收获地址
+def addressdel(request):
+    # 获取要删除地址的id
+    aid = request.GET['aid']
+    # 获取对象
+    data = Address.objects.get(id=aid)
+    data.delete()
+    return HttpResponse('<script>alert("删除地址成功");location.href="/address/list/"</script>')
+
+
+
+# 设置默认地址
+def addressstatus(request):
+    if request.is_ajax():
+        # 获取要修改的地址id
+        aid = request.GET['aid']
+        try:
+            # 获取对象
+            ob = Address.objects.get(id=aid)
+            # 修改状态
+            ob.isstatus = True
+            # 获取当前的用户对象
+            uobj = Users.objects.get(id=request.session['VipUser']['uid'])
+            # 查找此用户下的其他地址
+            obs = Address.objects.filter(uid=uobj).exclude(id=ob.id)
+            # 因为默认地址是唯一所以修改其他地址的状态
+            for x in obs:
+                x.isstatus = False
+                x.save()
+
+            ob.save()
+
+            return JsonResponse({'error': '0', 'mgs': '设置默认地址成功'})
+        except:
+            return JsonResponse({'error': '1', 'mgs': '设置默认地址失败'})
 
 
 # 图片上传

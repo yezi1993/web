@@ -25,25 +25,23 @@
                     <a href="{% url 'home_myorder' %}" class="ml active">我的订单</a>
                     <a href="javascript:;" class="type-title"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>个人中心</a>
                     <a href="{% url 'home_mycentre' %}" class="ml ">基本信息</a>
-                    <a href="{% url 'home_addresslist' %}" class="ml ">地址管理</a>
+                    <a href="/#" class="ml ">地址管理</a>
                 </div>
             </div><!-- 左侧导航 E-->
             <!-- 右侧内容展示 -->
             <div class="right-content f-fr col-md-8 col-xs-12 col-sm-12">
                 <div class="order-main">
                     <div class="type-tab-btn">
-                         <a href="{% url 'home_myorder' %}" class="allOrder active col-20" data-type="-1">全部订单</a><i class="line hidden-xs hidden-sm">|</i>
+                        <a href="{% url 'home_myorder' %}"  class="hasDeliver col-20" href="" data-type="2">全部订单</a><i class="line hidden-xs hidden-sm">|</i>
                         <a href="{% url 'home_myorder_daifukuan' %}" class="" data-type="-1">待付款</a><i class="line hidden-xs hidden-sm">|</i>
                         <a class="waitDeliver col-20" href="{% url 'home_myorder_daifahuo' %}" data-type="1">待发货</a><i class="line hidden-xs hidden-sm">|</i>
-                        <a class="waitPay col-20" href="{% url 'home_myorder_yifahuo' %}" data-type="0">已发货<span class="amount _actAmount"></span></a><i class="line hidden-xs hidden-sm">|</i>
+                        <a href="{% url 'home_myorder_yifahuo' %}" class="allOrder active col-20" data-type="-1">已发货</a><i class="line hidden-xs hidden-sm">|</i>
                         <a class="other col-20" href="javascript:;" data-type="99">其他</a>
                     </div>
                     <div class="list-head hidden-xs hidden-sm">
                     <ul class="clearfix">
                         <li class="w50">
-                            <select id="checkType" class="check-type">
-                                <option value="1">全部订单</option>
-                            </select>
+
                             订单明细
                         </li>
                         <li class="w125"> </li>

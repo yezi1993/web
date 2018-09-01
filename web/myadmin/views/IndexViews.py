@@ -1,8 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 
 from django.contrib.auth import login,logout
 from django.contrib.auth import authenticate
+
+from myadmin.models import Citys
 
 # Create your views here.
 # 后台主页
@@ -90,3 +92,4 @@ def verifycode(request):
     im.save(buf, 'png')
     #将内存中的图片数据返回给客户端，MIME类型为图片png
     return HttpResponse(buf.getvalue(), 'image/png')
+
