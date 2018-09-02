@@ -66,6 +66,8 @@ def register(request):
             # 接受数据
             data = request.POST.dict()
 
+            if Users.objects.get(phone=data['phone']):
+                return HttpResponse('<script>alert("手机号已存在，请重新填写");history.back(-1);</script>')
             # 先检测验证码是否正确
             # if str(data['vcode']) != str(request.session['code']):
             #     return HttpResponse('<script>alert("验证码错误");history.back(-1);</script>')
