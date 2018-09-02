@@ -19,8 +19,10 @@ def index(request):
     # 获取所有的商品
     goods = Goods.objects.filter()
     data.goods = goods
+    # 查询热销商品
+    rexiao = goods.filter(rexiao=1).order_by('-update_time')
 
-    cont = {'typeslist':data}
+    cont = {'typeslist':data,'rexiao':rexiao}
     return render(request, 'home/index.html',cont)
 
 
@@ -404,6 +406,7 @@ def addressedit(request):
         return render(request,'home/address/edit.html',{'data':data})
 
 
+# 执行收货地址编辑
 def addressupdate(request):
 
     if request.method == 'POST':

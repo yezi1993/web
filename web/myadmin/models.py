@@ -64,6 +64,8 @@ class Goods(models.Model):
     clicknum = models.IntegerField(default=0)
     # 订单量
     ordernum = models.IntegerField(default=0)
+    # 是否热销  1热销 0不是热销
+    rexiao = models.IntegerField(default=0)
     # 商品信息
     info = models.TextField()
     # 商品状态 0正常 1下架

@@ -82,6 +82,9 @@ urlpatterns = [
     url(r'^goods/update/$', GoodsViews.update, name='myadmin_goods_update'),
     # 商品删除
     url(r'^goods/delete/$', GoodsViews.delete, name='myadmin_goods_delete'),
+    # 商品是否热销
+    url(r'^goods/rexiao/$', GoodsViews.rexiao, name='myadmin_goods_rexiao'),
+
 
 
     # 订单列表
@@ -90,7 +93,5 @@ urlpatterns = [
     url(r'^orders/ordersinfo/', OrderViews.ordersinfo, name='myadmin_orders_ordersinfo'),
     # 修改订单状态
     url(r'^orders/orderstatus/', OrderViews.orderstatus, name='myadmin_orders_orderstatus'),
-
-
 
 ]

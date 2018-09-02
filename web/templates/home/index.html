@@ -128,194 +128,52 @@
                   <div class="hhh-title">热品推荐</div>
           </div>
           <!-- Wrapper for slides -->
-          <div class="carousel-inner home-hot-content" role="listbox">
+          <div class="carousel-inner home-hot-content rexiao" role="listbox">
             <ul class="item active clearfix home-hot-list">
+              {% for i in rexiao|slice:":5" %}
               <li class="home-product">
                 <div class="">
-                  <img src="/static/home/img/hot1.jpg" class="home-product-img">
+                  <img src="{{i.pic}}" class="home-product-img">
                   <div class="caption">
-                    <h4 class="home-product-title">魅蓝 Note5</h4>
+                    <h4 class="home-product-title">{{i.name}}</h4>
                     <h6 class="home-product-subtitle red">
                            <span class="mb-hh-red">月销</span>  
                                累计超18000台
                     </h6>
                     <p class="home-product-bottom">                                    
-                      <span class="home-product-price">899
+                      <span class="home-product-price">{{i.price}}
                           <span class="home-product-start-tag">起</span> 
                       </span>
                       <span class="home-product-price origin">999</span>          
                     </p>
-                    <div class="home-product-sign" style="background-color: #f59646;">冠军</div>
+                    <div class="home-product-sign" style="background-color: #f59646;">爆款</div>
                   </div>
                 </div>
               </li>
-              <li class="home-product">
-                <div class="">
-                  <img src="/static/home/img/hot2.jpg" class="home-product-img">
-                  <div class="caption">
-                    <h4 class="home-product-title">魅蓝 Note5</h4>
-                    <h6 class="home-product-subtitle red">
-                           <span class="mb-hh-red">月销</span>  
-                               累计超18000台
-                    </h6>
-                    <p class="home-product-bottom">                                    
-                      <span class="home-product-price">899
-                          <span class="home-product-start-tag">起</span> 
-                      </span>
-                      <span class="home-product-price origin">999</span>          
-                    </p>
-                    <div class="home-product-sign" style="background-color: #f59646;">亚军</div>
-                  </div>
-                </div>
-              </li>
-              <li class="home-product">
-                <div class="">
-                  <img src="/static/home/img/hot3.jpg" class="home-product-img">
-                  <div class="caption">
-                    <h4 class="home-product-title">魅蓝 Note5</h4>
-                    <h6 class="home-product-subtitle red">
-                           <span class="mb-hh-red">月销</span>  
-                               累计超18000台
-                    </h6>
-                    <p class="home-product-bottom">                                    
-                      <span class="home-product-price">899
-                          <span class="home-product-start-tag">起</span> 
-                      </span>
-                      <span class="home-product-price origin">999</span>          
-                    </p>
-                    <div class="home-product-sign" style="background-color: #f59646;">季军</div>
-                  </div>
-                </div>
-              </li>
-              <li class="home-product">
-                <div class="">
-                  <img src="/static/home/img/hot4.jpg" class="home-product-img">
-                  <div class="caption">
-                    <h4 class="home-product-title">魅蓝 Note5</h4>
-                    <h6 class="home-product-subtitle red">
-                           <span class="mb-hh-red">月销</span>  
-                               累计超18000台
-                    </h6>
-                    <p class="home-product-bottom">                                    
-                      <span class="home-product-price">899
-                          <span class="home-product-start-tag">起</span> 
-                      </span>
-                      <span class="home-product-price origin">999</span>          
-                    </p>
-                  </div>
-                </div>
-              </li>
-              <li class="home-product">
-                <div class="">
-                  <img src="/static/home/img/hot5.png" class="home-product-img">
-                  <div class="caption">
-                    <h4 class="home-product-title">魅蓝 Note5</h4>
-                    <h6 class="home-product-subtitle red">
-                           <span class="mb-hh-red">月销</span>  
-                               累计超18000台
-                    </h6>
-                    <p class="home-product-bottom">                                    
-                      <span class="home-product-price">899
-                          <span class="home-product-start-tag">起</span> 
-                      </span>
-                      <span class="home-product-price origin">999</span>          
-                    </p>
-                  </div>
-                </div>
-              </li>
+              {% endfor %}
             </ul>
             <div class="item clearfix">
               <ul class="item active clearfix">
+              {% for v in rexiao|slice:"5:10" %}
                 <li class="home-product">
                   <div class="">
-                    <img src="/static/home/img/hot6.png" class="home-product-img">
+                    <img src="{{v.pic}}" class="home-product-img">
                     <div class="caption">
-                      <h4 class="home-product-title">魅蓝 Note5</h4>
+                      <h4 class="home-product-title">{{v.name}}</h4>
                       <h6 class="home-product-subtitle red">
-                             <span class="mb-hh-red">月销</span>  
+                             <span class="mb-hh-red">月销</span>
                                  累计超18000台
                       </h6>
-                      <p class="home-product-bottom">                                    
-                        <span class="home-product-price">899
-                            <span class="home-product-start-tag">起</span> 
+                      <p class="home-product-bottom">
+                        <span class="home-product-price">{{v.price}}
+                            <span class="home-product-start-tag">起</span>
                         </span>
-                        <span class="home-product-price origin">999</span>          
+                        <span class="home-product-price origin">999</span>
                       </p>
                     </div>
                   </div>
                 </li>
-                <li class="home-product">
-                  <div class="">
-                    <img src="/static/home/img/hot7.png" class="home-product-img">
-                    <div class="caption">
-                      <h4 class="home-product-title">魅蓝 Note5</h4>
-                      <h6 class="home-product-subtitle red">
-                             <span class="mb-hh-red">月销</span>  
-                                 累计超18000台
-                      </h6>
-                      <p class="home-product-bottom">                                    
-                        <span class="home-product-price">899
-                            <span class="home-product-start-tag">起</span> 
-                        </span>
-                        <span class="home-product-price origin">999</span>          
-                      </p>
-                    </div>
-                  </div>
-                </li>
-                <li class="home-product">
-                  <div class="">
-                    <img src="/static/home/img/hot8.png" class="home-product-img">
-                    <div class="caption">
-                      <h4 class="home-product-title">魅蓝 Note5</h4>
-                      <h6 class="home-product-subtitle red">
-                             <span class="mb-hh-red">月销</span>  
-                                 累计超18000台
-                      </h6>
-                      <p class="home-product-bottom">                                    
-                        <span class="home-product-price">899
-                            <span class="home-product-start-tag">起</span> 
-                        </span>
-                        <span class="home-product-price origin">999</span>          
-                      </p>
-                    </div>
-                  </div>
-                </li>
-                <li class="home-product">
-                  <div class="">
-                    <img src="/static/home/img/hot9.png" class="home-product-img">
-                    <div class="caption">
-                      <h4 class="home-product-title">魅蓝 Note5</h4>
-                      <h6 class="home-product-subtitle red">
-                             <span class="mb-hh-red">月销</span>  
-                                 累计超18000台
-                      </h6>
-                      <p class="home-product-bottom">                                    
-                        <span class="home-product-price">899
-                            <span class="home-product-start-tag">起</span> 
-                        </span>
-                        <span class="home-product-price origin">999</span>          
-                      </p>
-                    </div>
-                  </div>
-                </li>
-                <li class="home-product">
-                  <div class="">
-                    <img src="/static/home/img/hot10.png" class="home-product-img">
-                    <div class="caption">
-                      <h4 class="home-product-title">魅蓝 Note5</h4>
-                      <h6 class="home-product-subtitle red">
-                             <span class="mb-hh-red">月销</span>  
-                                 累计超18000台
-                      </h6>
-                      <p class="home-product-bottom">                                    
-                        <span class="home-product-price">899
-                            <span class="home-product-start-tag">起</span> 
-                        </span>
-                        <span class="home-product-price origin">999</span>          
-                      </p>
-                    </div>
-                  </div>
-                </li>
+                {% endfor %}
             </ul>
           </div>
         </div>

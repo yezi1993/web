@@ -137,5 +137,18 @@ def delete(request):
                 return JsonResponse({'code': 1, 'msg': '状态修改失败'})
         return JsonResponse({'error': 4, 'msg': '请求错误'})
 
+def rexiao(request):
+    if request.is_ajax():
+        try:
+            ob = Goods.objects.get(id=request.GET['uid'])
+
+            ob.rexiao = request.GET['rexiao']
+
+            ob.save()
+
+            return JsonResponse({'code': 0, 'msg': '状态修改成功'})
+        except:
+            return JsonResponse({'code': 1, 'msg': '状态修改失败'})
+    return JsonResponse({'error': 4, 'msg': '请求错误'})
 
 

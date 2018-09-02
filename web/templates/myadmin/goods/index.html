@@ -76,6 +76,7 @@
                                 <th>库存</th>
                                 <th>点击量</th>
                                 <th>购买量</th>
+                                <th>是否热销</th>
                                 <th>状态</th>
                                 <th>发布时间</th>
                                 <th>操作</th>
@@ -94,6 +95,10 @@
                                 <td class="am-text-middle">{{ v.store }}</td>
                                 <td class="am-text-middle">{{ v.clicknum }}</td>
                                 <td class="am-text-middle">{{ v.ordernum }}</td>
+                                <td class="am-text-middle"><select name="" class="rexiao" uid="{{ v.id }}" style="color: black;">
+                                        <option  {% if v.rexiao == 0 %} selected {% endif %} value="0">否</option>
+                                        <option {% if v.rexiao == 1 %} selected {% endif %} value="1">是</option>
+                                    </select></td>
                                 <td class="am-text-middle">
                                      <select name="" class="status" uid="{{ v.id }}" style="color: black;">
                                         <option  {% if v.status == 0 %} selected {% endif %} value="0">上架</option>
@@ -148,6 +153,19 @@
         console.log(v)
 
         $.get('{% url "myadmin_goods_delete" %}',{'uid':uid,'status':v},function(data){
+            alert(data['msg']);
+        },'json')
+    })
+
+    //改变热销状态
+    $('.rexiao').change(function(){
+        //获取要修改状态用户的id
+        var uid = $(this).attr('uid')
+        //获取修改状态的值
+        var v = $(this).val();
+        console.log(v)
+
+        $.get('{% url "myadmin_goods_rexiao" %}',{'uid':uid,'rexiao':v},function(data){
             alert(data['msg']);
         },'json')
     })
