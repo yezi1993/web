@@ -165,18 +165,20 @@ def cartadd(request):
 
 # 购物车列表
 def cartlist(request):
-    # 获取所有的购物车的商品
-    data = request.session['cart']
+    try:
+        # 获取所有的购物车的商品
+        data = request.session['cart']
 
-    for k, v in data.items():
-        data[k]['goods'] = Goods.objects.get(id=k)
+        for k, v in data.items():
+            data[k]['goods'] = Goods.objects.get(id=k)
 
-    return render(request, 'home/cartlist.html', {'data': data})
-
+        return render(request, 'home/cartlist.html', {'data': data})
+    except:
+        return HttpResponse('<script>alert("请选择商品");location.href="/"</script>')
 
 # 购物车修改
 def cartedit(request):
-    # 接受 商品id,数量
+    # 获取 商品id,数量
     gid = request.GET.get('gid')
     num = request.GET.get('num')
 
