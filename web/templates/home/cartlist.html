@@ -139,8 +139,9 @@
       // 判断是否登录
       u = '{{ request.session.VipUser }}'
       if(!u){
-        alert('请先登录')
-        location.href="{% url 'home_login' %}?nextpath={{ request.path }}"
+        alert('请先登录');
+        location.href="{% url 'home_login' %}?nextpath={{ request.path }}";
+
         return false
       }
 

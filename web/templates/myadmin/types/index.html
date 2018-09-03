@@ -141,7 +141,7 @@
             if(newname==name){
                 td.find('.name').html(name)
             }else{
-                $.get("{% url 'myadmin_types_edit' %}",{'uid':tid,"name":newname},function(data){
+                $.get("{% url 'myadmin_types_edit' %}",{'tid':tid,"name":newname},function(data){
                     if(data['error']=='0'){
                         td.find('.name').html(newname)
                     }

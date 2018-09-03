@@ -34,7 +34,7 @@ def index(request):
             data = data.filter(status=4).order_by('-addtime')
 
 
-    page = Paginator(data,10)
+    page = Paginator(data,5)
     # 获取当前页码数
     p = request.GET.get('p',1)
     # 当前页的数据

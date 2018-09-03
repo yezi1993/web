@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse,JsonResponse
+from django.http import HttpResponse,JsonResponse,HttpResponseRedirect
 from django.contrib.auth.hashers import make_password,check_password
 
-from myadmin.models import Users,Types,Goods,Citys,Order,OrderInfo,Address
+from myadmin.models import Users,Types,Goods,Citys,Order,OrderInfo,Address,Slideshow
 
 import os
 from web.settings import BASE_DIR
@@ -21,8 +21,9 @@ def index(request):
     data.goods = goods
     # 查询热销商品
     rexiao = goods.filter(rexiao=1).order_by('-update_time')
+    lunbo = Slideshow.objects.filter(status=1)
 
-    cont = {'typeslist':data,'rexiao':rexiao}
+    cont = {'typeslist':data,'rexiao':rexiao,'lunbo':lunbo}
     return render(request, 'home/index.html',cont)
 
 
@@ -66,14 +67,14 @@ def register(request):
             # 接受数据
             data = request.POST.dict()
 
-            if Users.objects.get(phone=data['phone']):
-                return HttpResponse('<script>alert("手机号已存在，请重新填写");history.back(-1);</script>')
+            # if Users.objects.filter(phone=data['phone']):
+            #     return HttpResponse('<script>alert("手机号已存在，请重新填写");history.back(-1);</script>')
             # 先检测验证码是否正确
-            # if str(data['vcode']) != str(request.session['code']):
-            #     return HttpResponse('<script>alert("验证码错误");history.back(-1);</script>')
+            if str(data['vcode']) != str(request.session['code']):
+                return HttpResponse('<script>alert("验证码错误");history.back(-1);</script>')
 
             data.pop('csrfmiddlewaretoken')
-            # data.pop('vcode')
+            data.pop('vcode')
 
             # 密码加密
             data['password'] = make_password(data['password'], None, 'pbkdf2_sha256')
@@ -174,7 +175,7 @@ def cartlist(request):
 
         return render(request, 'home/cartlist.html', {'data': data})
     except:
-        return HttpResponse('<script>alert("请选择商品");location.href="/"</script>')
+        return HttpResponse('<script>alet("请选择商品");location.href="/"</script>')
 
 # 购物车修改
 def cartedit(request):
@@ -276,8 +277,8 @@ def orderbuy(request):
     print(orderid)
 
     # 显示支付页面
-    return HttpResponse('orderbuy')
-
+    # return HttpResponse('orderbuy')
+    return HttpResponseRedirect('/my/order/')
 
 # 我的订单
 def myorder(request):

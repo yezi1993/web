@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # 前台用户表
 class Users(models.Model):
     # 用户名
@@ -9,13 +10,13 @@ class Users(models.Model):
     # 手机
     phone = models.CharField(max_length=11)
     # 邮箱
-    email = models.CharField(max_length=50,null=True)
+    email = models.CharField(max_length=50, null=True)
     # 年龄
     age = models.IntegerField(default=18)
     # 性别
-    sex = models.CharField(max_length=1,default='1')
+    sex = models.CharField(max_length=1, default='1')
     # 头像
-    pic = models.CharField(max_length=100,default='/static/pics/user.gif')
+    pic = models.CharField(max_length=100, default='/static/pics/user.gif')
     # 状态 0禁用 1启用
     status = models.IntegerField(default=1)
     # 注册时间
@@ -30,6 +31,7 @@ class Users(models.Model):
             ("remove_users", "会员删除权限"),
             ("update_users", "会员修改权限"),
         )
+
 
 # 商品分类表
 class Types(models.Model):
@@ -48,10 +50,11 @@ class Types(models.Model):
             ("update_types", "商品分类修改权限"),
         )
 
+
 # 商品表
 class Goods(models.Model):
     # 分类id
-    tid = models.ForeignKey(to='Types',to_field='id')
+    tid = models.ForeignKey(to='Types', to_field='id')
     # 商品名称
     name = models.CharField(max_length=255)
     # 价格
@@ -83,6 +86,7 @@ class Goods(models.Model):
             ("update_goods", "商品修改权限"),
         )
 
+
 # 收货地址表
 class Address(models.Model):
     # 用户
@@ -94,9 +98,10 @@ class Address(models.Model):
     # 收货电话
     aphone = models.CharField(max_length=11)
     # 备注
-    atags = models.CharField(max_length=10,null=True)
+    atags = models.CharField(max_length=10, null=True)
     # 是否默认地址
     isstatus = models.BooleanField(default=False)
+
 
 # 订单表
 class Order(models.Model):
@@ -104,7 +109,7 @@ class Order(models.Model):
     aid = models.ForeignKey(to="Address", to_field="id")
     totalprice = models.FloatField()
     # 0 未支付, 1已支付,2,已发货,3已收货,4,已取消
-    status  = models.IntegerField(default=0)
+    status = models.IntegerField(default=0)
     addtime = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -113,12 +118,25 @@ class Order(models.Model):
             ("update_order", "订单修改权限"),
         )
 
+
 # 订单详情表
 class OrderInfo(models.Model):
-    orderid =  models.ForeignKey(to="Order", to_field="id")
+    orderid = models.ForeignKey(to="Order", to_field="id")
     gid = models.ForeignKey(to="Goods", to_field="id")
-    num  = models.IntegerField()
+    num = models.IntegerField()
     price = models.FloatField()
+
+
+# 轮播图
+class Slideshow(models.Model):
+    # 轮播图名字
+    name = models.CharField(max_length=30)
+    # 轮播图地址
+    pic = models.CharField(max_length=100)
+    # 是否默认
+    status = models.IntegerField(default=0)
+    # 创建时间
+    create_time = models.DateTimeField(auto_now_add=True)
 
 
 # 城市表
@@ -126,4 +144,3 @@ class Citys(models.Model):
     name = models.CharField(max_length=20)
     level = models.IntegerField()
     upid = models.IntegerField()
-

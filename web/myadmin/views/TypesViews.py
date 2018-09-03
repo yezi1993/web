@@ -86,7 +86,6 @@ def delete(request):
 @permission_required('myadmin.update_types',raise_exception=True)
 def edit(request):
     if request.is_ajax():
-
         ob = Types.objects.get(id = request.GET['tid'])
 
         ob.name = request.GET['name']

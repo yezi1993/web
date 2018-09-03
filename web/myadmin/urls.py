@@ -14,30 +14,29 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from . views import IndexViews,UserViews,TypesViews,GoodsViews,AuthViews,OrderViews
-
+from .views import IndexViews, UserViews, TypesViews, GoodsViews, AuthViews, OrderViews, SlideshowViews
 
 urlpatterns = [
 
     # 后台主页
-    url(r'^$',IndexViews.index,name='myadmin_index'),
+    url(r'^$', IndexViews.index, name='myadmin_index'),
     # 后台登录
-    url(r'^login/$',IndexViews.myadminlogin,name='myadmin_login'),
+    url(r'^login/$', IndexViews.myadminlogin, name='myadmin_login'),
     # 后台退出
-    url(r'^logout/$',IndexViews.myadminlogout,name='myadmin_logout'),
-    #验证码
-    url(r'^verifycode/$',IndexViews.verifycode,name='myadmin_verifycode'),
+    url(r'^logout/$', IndexViews.myadminlogout, name='myadmin_logout'),
+    # 验证码
+    url(r'^verifycode/$', IndexViews.verifycode, name='myadmin_verifycode'),
 
     # 后台管理员页
-    url(r'^auth/user/index/$',AuthViews.userindex,name='myadmin_auth_userindex'),
+    url(r'^auth/user/index/$', AuthViews.userindex, name='myadmin_auth_userindex'),
     # 管理员添加
-    url(r'^auth/user/add/$',AuthViews.useradd,name='myadmin_auth_useradd'),
+    url(r'^auth/user/add/$', AuthViews.useradd, name='myadmin_auth_useradd'),
     # 管理员修改页
-    url(r'^auth/user/edit/$',AuthViews.useredit,name='myadmin_auth_useredit'),
+    url(r'^auth/user/edit/$', AuthViews.useredit, name='myadmin_auth_useredit'),
     # 管理员修改执行
-    url(r'^auth/user/update/$',AuthViews.userupdate,name='myadmin_auth_userupdate'),
+    url(r'^auth/user/update/$', AuthViews.userupdate, name='myadmin_auth_userupdate'),
     # 管理员删除
-    url(r'^auth/user/del/$',AuthViews.userdel,name='myadmin_auth_userdel'),
+    url(r'^auth/user/del/$', AuthViews.userdel, name='myadmin_auth_userdel'),
 
     # 管理组列表页
     url(r'^auth/group/index/$', AuthViews.groupindex, name="myadmin_auth_groupindex"),
@@ -61,7 +60,7 @@ urlpatterns = [
     # 用户删除
     url(r'^user/delete/$', UserViews.delete, name='myadmin_user_del'),
     # 修改用户状态
-    url(r'^user/status/$',UserViews.status,name='myadmin_user_status'),
+    url(r'^user/status/$', UserViews.status, name='myadmin_user_status'),
 
     # 分类列表页
     url(r'^types/index/$', TypesViews.index, name='myadmin_types_index'),
@@ -72,20 +71,18 @@ urlpatterns = [
     # 修改分类名称
     url(r'^types/edit/$', TypesViews.edit, name='myadmin_types_edit'),
 
-
     # 商品管理
     url(r'^goods/add/', GoodsViews.add, name='myadmin_goods_add'),
     # 商品主页
     url(r'^goods/index/', GoodsViews.index, name='myadmin_goods_index'),
     # 商品编辑
     url(r'^goods/edit/(?P<uid>[0-9]+)/$', GoodsViews.edit, name='myadmin_goods_edit'),
+    # 商品执行编辑
     url(r'^goods/update/$', GoodsViews.update, name='myadmin_goods_update'),
     # 商品删除
     url(r'^goods/delete/$', GoodsViews.delete, name='myadmin_goods_delete'),
     # 商品是否热销
     url(r'^goods/rexiao/$', GoodsViews.rexiao, name='myadmin_goods_rexiao'),
-
-
 
     # 订单列表
     url(r'^orders/index/', OrderViews.index, name='myadmin_orders_index'),
@@ -94,4 +91,16 @@ urlpatterns = [
     # 修改订单状态
     url(r'^orders/orderstatus/', OrderViews.orderstatus, name='myadmin_orders_orderstatus'),
 
+    # 轮播图管理
+    url(r'^slidesshow/add/', SlideshowViews.add, name='myadmin_slidesshow_add'),
+    # 轮播图主页
+    url(r'^slidesshow/index/', SlideshowViews.index, name='myadmin_slidesshow_index'),
+    # 轮播图编辑
+    url(r'^slidesshow/edit/(?P<sid>[0-9]+)/$', SlideshowViews.edit, name='myadmin_slidesshow_edit'),
+    # 轮播图执行编辑
+    url(r'^slidesshow/update/$', SlideshowViews.update, name='myadmin_slidesshow_update'),
+    # 轮播图删除
+    url(r'^slidesshow/delete/(?P<id>[0-9]+)/$', SlideshowViews.delete, name='myadmin_slidesshow_delete'),
+    # 轮播图修改状态
+    url(r'^slidesshow/status/$', SlideshowViews.status, name='myadmin_slidesshow_status'),
 ]

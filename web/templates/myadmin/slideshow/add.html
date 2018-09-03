@@ -1,0 +1,113 @@
+{% extends 'myadmin/index.html' %}
+{% block title %}
+<title>轮播图添加</title>
+{% endblock %}
+
+{% block con %}
+<div class="container-fluid am-cf">
+    <div class="row">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+            <div class="page-header-heading">
+                <span class="am-icon-user page-header-heading-icon"></span> 
+                轮播图添加 
+            </div>
+        </div>
+        <div class="am-u-lg-3 tpl-index-settings-button">
+            <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>
+        </div>
+    </div>
+</div>
+
+<div class="row-content am-cf"> 
+   <div class="row"> 
+    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12"> 
+     <div class="widget am-cf"> 
+      <div class="widget-body am-fr"> 
+       
+       <form method="post" action="" enctype="multipart/form-data"  class="am-form tpl-form-line-form">
+            {% csrf_token %}
+
+
+
+            <div class="am-form-group"> 
+                <label for="user-name" class="am-u-sm-3 am-form-label">
+                    轮播图标题
+                </label> 
+                <div class="am-u-sm-9"> 
+                    <input name="name" type="text" class="tpl-form-input"
+                     placeholder="请输入轮播图名" /> 
+                </div> 
+            </div>
+           <div class="am-form-group"> 
+                <label for="user-name" class="am-u-sm-3 am-form-label">
+                    是否显示
+                </label> 
+                <div class="am-u-sm-9">
+                    <input type="radio" name="status" value="1">是
+                    <input type="radio" name="status" checked value="0">否
+                </div>
+            </div>
+
+
+            <div class="am-form-group"> 
+                <label for="user-weibo" class="am-u-sm-3 am-form-label">
+                    轮播图图片 
+                </label> 
+                 <div class="am-u-sm-9">
+                      <div class="am-form-group am-form-file"> 
+                        <button type="button" class="am-btn am-btn-danger am-btn-sm"> <i class="am-icon-cloud-upload"></i> 添加封面图片</button>
+
+                        <input name="face" type="file" multiple="" id="file0" multiple="multiple"/>
+                      </div>
+                     <div>
+                         <img src="" id="img0" width="120" class="hide">
+                     </div>
+                 </div> 
+            </div> 
+           
+
+            <div class="am-form-group">
+                <div class="am-u-sm-9 am-u-sm-push-3">
+                    <button class="am-btn am-btn-primary tpl-btn-bg-color-success ">添加</button>
+                </div>
+            </div>
+
+       
+       </form> 
+      
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+</div>
+<script type="text/javascript">
+     $("#file0").change(function(){
+    var objUrl = getObjectURL(this.files[0]) ;
+    console.log("objUrl = "+objUrl) ;
+    if (objUrl)
+    {
+      $("#img0").attr("src", objUrl);
+      $("#img0").removeClass("hide");
+    }
+  }) ;
+  //建立一個可存取到該file的url
+  function getObjectURL(file)
+  {
+    var url = null ;
+    if (window.createObjectURL!=undefined)
+    { // basic
+      url = window.createObjectURL(file) ;
+    }
+    else if (window.URL!=undefined)
+    {
+      // mozilla(firefox)
+      url = window.URL.createObjectURL(file) ;
+    }
+    else if (window.webkitURL!=undefined) {
+      // webkit or chrome
+      url = window.webkitURL.createObjectURL(file) ;
+    }
+    return url ;
+  }
+</script>
+{% endblock %}

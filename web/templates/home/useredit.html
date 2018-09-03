@@ -10,79 +10,81 @@
 
 {% block con %}
 <div class="mainbody order">
-		<div class="container">
-			<!-- 面包屑导航 -->
-			<div class="crumbs ">
-				<ol class="breadcrumb">
-					<li class="hidden-xs hidden-sm"><a href="index.html">首页</a></li>
-					<li class="active"><a href="#">我的商城</a></li>
-				</ol>
-			</div><!-- 面包屑导航 E-->
+    <div class="container">
+        <!-- 面包屑导航 -->
+        <div class="crumbs ">
+            <ol class="breadcrumb">
+                <li class="hidden-xs hidden-sm"><a href="index.html">首页</a></li>
+                <li class="active"><a href="#">我的商城</a></li>
+            </ol>
+        </div><!-- 面包屑导航 E-->
 
-			<div class="main clearfix">
-				<!-- 左侧导航 -->
-				<div class="left-nav f-fl hidden-xs hidden-sm">
-					<div class="nav-main">
-						<a href="javascript:;" class="type-title"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>订单中心</a>
-						<a href="{% url 'home_myorder' %}" class="ml">我的订单</a>
-						<a href="javascript:;" class="type-title"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>个人中心</a>
-                        <a href="{% url 'home_mycentre' %}" class="ml ">基本信息</a>
-						<a href="#" class="ml ">地址管理</a>
-					</div>
-				</div><!-- 左侧导航 E-->
-				<!-- 右侧内容展示 -->
-				<div class="right-content f-fr col-xs-12 col-sm-12">
-					<form action="" method="post" enctype="multipart/form-data">
-						{% csrf_token %}
-					  	<div class="form-group">
-							<label >用户名</label>
-							<input type="text" class="form-control" name="username" value="{{data.username}}" >
-					  	</div>
-					  	<div class="form-group">
-							<label >密码</label>
-							<input type="text" class="form-control" name="password" placeholder="修改密码，请输入" ">
-					  	</div>
-						<div class="form-group">
-							<label >手机</label>
-							<input type="text" class="form-control" name="phone" value="{{data.phone}}" >
-					  	</div>
-						<div class="form-group">
-							<label >年龄</label>
-							<input type="text" class="form-control" name="age" value="{{data.age}}" >
-					  	</div>
-						<div class="form-group">
-							<label >邮箱</label>
-							<input type="email" class="form-control" name="email" placeholder="请输入邮箱" >
-					  	</div>
-						<div class="radio">
-							性别
-						  <label>
-							<input type="radio" name="sex"  value="1" {% if data.sex == '1' %} checked {% endif %} >
-								男
-						  </label>
-							<label>
-							<input type="radio" name="sex"  value="0" {% if data.sex == '0' %} checked {% endif %} >
-								女
-						  </label>
-						</div>
+        <div class="main clearfix">
+            <!-- 左侧导航 -->
+            <div class="left-nav f-fl hidden-xs hidden-sm">
+                <div class="nav-main">
+                    <a href="javascript:;" class="type-title"><span class="glyphicon glyphicon-list-alt"
+                                                                    aria-hidden="true"></span>订单中心</a>
+                    <a href="{% url 'home_myorder' %}" class="ml">我的订单</a>
+                    <a href="javascript:;" class="type-title"><span class="glyphicon glyphicon-user"
+                                                                    aria-hidden="true"></span>个人中心</a>
+                    <a href="{% url 'home_mycentre' %}" class="ml ">基本信息</a>
+                    <a href="#" class="ml ">地址管理</a>
+                </div>
+            </div><!-- 左侧导航 E-->
+            <!-- 右侧内容展示 -->
+            <div class="right-content f-fr col-xs-12 col-sm-12">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>用户名</label>
+                        <input type="text" class="form-control" name="username" value="{{data.username}}">
+                    </div>
+                    <div class="form-group">
+                        <label>密码</label>
+                        <input type="text" class="form-control" name="password" placeholder="修改密码，请输入" ">
+                    </div>
+                    <div class="form-group">
+                        <label>手机</label>
+                        <input type="text" class="form-control" name="phone" value="{{data.phone}}">
+                    </div>
+                    <div class="form-group">
+                        <label>年龄</label>
+                        <input type="text" class="form-control" name="age" value="{{data.age}}">
+                    </div>
+                    <div class="form-group">
+                        <label>邮箱</label>
+                        <input type="email" class="form-control" name="email" placeholder="请输入邮箱">
+                    </div>
+                    <div class="radio">
+                        性别
+                        <label>
+                            <input type="radio" name="sex" value="1" {% if data.sex == '1' %} checked {% endif %} >
+                            男
+                        </label>
+                        <label>
+                            <input type="radio" name="sex" value="0" {% if data.sex == '0' %} checked {% endif %} >
+                            女
+                        </label>
+                    </div>
 
-					   <div class="am-form-group">
-						<label for="user-weibo" class="am-u-sm-3 am-form-label">
-							上传头像
-						</label>
-						 <div class="am-u-sm-9">
-							  <div class="am-form-group am-form-file">
-								   <div class="tpl-form-file-img">
-										<img width="200" src="{{ data.pic }}" alt="" />
-								   </div>
-                        <input name="pic" type="file" multiple="" />
-                      </div>
-                 </div>
+                    <div class="am-form-group">
+                        <label for="user-weibo" class="am-u-sm-3 am-form-label">
+                            上传头像
+                        </label>
+                        <div class="am-u-sm-9">
+                            <div class="am-form-group am-form-file">
+                                <div class="tpl-form-file-img">
+                                    <img width="200" src="{{ data.pic }}" alt=""/>
+                                </div>
+                                <input name="pic" type="file" multiple=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-default">修改</button>
+                </form>
             </div>
-					  <button class="btn btn-default">修改</button>
-					</form>
-			    </div>
-		</div>
-	</div>
+        </div>
+    </div>
 
 {% endblock%}

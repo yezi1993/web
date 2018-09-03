@@ -43,7 +43,6 @@ def userindex(request):
 
     return render(request,'myadmin/auth/index.html',{'data':data})
 
-
 # 后台管理员修改页
 @permission_required('auth.add_user',raise_exception=True)
 def useredit(request):
@@ -59,7 +58,6 @@ def useredit(request):
     context = {'data':ob,'glist':gs}
     # 加载模板
     return render(request,'myadmin/auth/edit.html',context)
-
 
 # 执行后台管理员修改
 @permission_required('auth.add_user',raise_exception=True)
@@ -89,7 +87,6 @@ def userupdate(request):
         ob.groups.set(Group.objects.filter(id__in=gs))
 
     return HttpResponse('<script>location.href="/myadmin/auth/user/index/"</script>')
-
 
 # 管理员删除
 @permission_required('auth.add_user',raise_exception=True)

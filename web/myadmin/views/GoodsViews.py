@@ -137,6 +137,8 @@ def delete(request):
                 return JsonResponse({'code': 1, 'msg': '状态修改失败'})
         return JsonResponse({'error': 4, 'msg': '请求错误'})
 
+# 热销商品
+@permission_required('myadmin.remove_goods',raise_exception=True)
 def rexiao(request):
     if request.is_ajax():
         try:

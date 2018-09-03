@@ -72,12 +72,12 @@
                         </div>
                     </div>
 
-                    <!--<div class="normalInput cycode-box fieldInput">-->
-                        <!--<div class="cycode-selectbox">-->
-                            <!--<input class="ipt-account inp-focus" name="vcode"   maxlength="6" placeholder="验证码" autocomplete="off">-->
-                            <!--<button id="sendsms" type="button" style="position: absolute;top:5px;right: 5px;height: 30px;text-align: center;line-height: 30px;">发送验证码</button>-->
-                        <!--</div>-->
-                    <!--</div>-->
+                    <div class="normalInput cycode-box fieldInput">
+                        <div class="cycode-selectbox">
+                            <input class="ipt-account inp-focus" name="vcode"   maxlength="6" placeholder="验证码" autocomplete="off">
+                            <button id="sendsms" type="button" style="position: absolute;top:5px;right: 5px;height: 30px;text-align: center;line-height: 30px;">发送验证码</button>
+                        </div>
+                    </div>
 
                     <div class="normalInput fieldInput passwd-box">
                         <input class="inp-focus" name="password" id="password" maxlength="16" placeholder="密码" autocomplete="off" type="password">
@@ -112,7 +112,7 @@
                           if(data['Message'] == 'OK'){
                             // 发送成功
                             // 调用函数,禁用发送按钮
-                            var t = 120
+                            var t = 60
                             var n = setInterval(function(){
                               $('#sendsms').attr('disabled',true)
                               $('#sendsms').text('发送验证码('+t+')')
